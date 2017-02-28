@@ -1,0 +1,19 @@
+{
+  "name": "tangent",
+  "version": "1.0.0",
+  "description": "Web application for tcp ip devices ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.5",
+    "ws": "^2.1.0"
+  }
+}
