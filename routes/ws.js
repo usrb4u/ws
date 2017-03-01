@@ -54,7 +54,7 @@ module.exports = function(app) {
             if(err)
                 console.log(err);
             else {
-                if(!rec){
+                if(rec.length==0){
                     var device = new Device({
                         deviceId:devId,
                         ipAddress:ipAddress,
