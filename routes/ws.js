@@ -12,17 +12,23 @@ var mongoose = require('mongoose');
 module.exports = function(app) {
     
     const server = http.createServer(app);
-
+    var clients = {};
     const wss = new WebSocket.Server({ server,
         verifyClient:function(info,cb){
             // console.log('Initial acceptance:');
             // console.log(info.req.connection);
+            // console.log(info.origin);
             return cb(true);
         }
     })
 
     wss.on('connection', function connection(ws) {
     const location = url.parse(ws.upgradeReq.url, true);
+    // console.log(location);
+
+    ws.key = ws.remoteAddress ;
+    clients[ws.key] = ws;
+
     // You might use location.query.access_token to authenticate or share sessions
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
     var resp='';
@@ -50,6 +56,7 @@ module.exports = function(app) {
     
     eventEmitter.on('DEVID_RESPONSE',function(devId,ipAddress){
         //db check and register here.
+        
         Device.find({deviceId:devId}).lean().exec(function(err, rec) {
             if(err)
                 console.log(err);
@@ -90,22 +97,22 @@ module.exports = function(app) {
                })
                
             }
-            ws.send(JSON.stringify({"PACKET_ID":"DEV_REG_REQUEST"}));
+            clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_REG_REQUEST"}));
         };
         
       });
     });
     
     eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
-        ws.send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+        clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
     });
     
     eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
-        ws.send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+        clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
     });
     
 
-    ws.send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
+    clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
 
     ws.on('message', function incoming(message) {
         resp = JSON.parse(message);
@@ -129,17 +136,17 @@ module.exports = function(app) {
             break;
         case 'DEVID_RESPONSE':
             // console.log(resp);
+            // clients[ws._socket.remoteAddress] = ws;
             eventEmitter.emit('DEVID_RESPONSE',resp.DEVID,ws._socket.remoteAddress);
         }       
       });
 
     ws.on('close',function close(){
-
-        console.log('disconnected');
+        delete clients[ws.key]
+        console.log('disconnected : ');
     })
   
 
-    //  ws.send(JSON.stringify({'hello':'world'}));
     });
 
     server.listen(8080, '127.0.0.1',function listening() {
