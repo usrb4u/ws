@@ -42,22 +42,33 @@
     <div class="col-sm-8" item-height="300px;">
         
         <h3> Welcome to the Tangent Techno Labs</h3>
-        <span> device Id </span>
-        <input type="text" id="devId">
-        </div>
+        <form >
+            <table width="50%">
+                <tr>
+                    <td>Device Id</td>
+                    <td><input type="text" class="form-control" ng-model="regDev.devId" required></td>
+                </tr>
+                <tr>
+                    <td>Alias Name</td>
+                    <td><input type="text" class="form-control" ng-model="regDev.aliasName" required></td>
+                </tr>
+                <tr>
+                    <td><button type="button" ng-click="regDevice()">Add Device</button></td>
+                </tr>
+            </table>
+            
+        </form>
     </div>
-
-    <div class="col-sm-8">
-        <h4> Choose the device from list / Add new Device</h4>
-    </div>
+    
     <div class="col-sm-4">
         <div class="well">
         <p>Device List:</p>
         </div>
         <div class="well">
-        <p>Upcoming Events..</p>
+            <ul>
+                <li ng-repeat="dev in devList">{{dev.deviceId}}</li>
+            </ul>
         </div>
-        <button id="add"> Add New Device</button>
     </div>
     </div>
     <br>

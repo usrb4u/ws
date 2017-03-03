@@ -26,8 +26,9 @@ module.exports = function(app) {
     const location = url.parse(ws.upgradeReq.url, true);
     // console.log(location);
 
-    ws.key = ws.remoteAddress ;
+    ws.key = ws._socket.remoteAddress ;
     clients[ws.key] = ws;
+    console.log(ws.key);
 
     // You might use location.query.access_token to authenticate or share sessions
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
@@ -97,6 +98,7 @@ module.exports = function(app) {
                })
                
             }
+
             clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_REG_REQUEST"}));
         };
         
@@ -110,6 +112,24 @@ module.exports = function(app) {
     eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
         clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
     });
+    eventEmitter.on('changeStatus',function(ip,stat){
+
+        Device.update({ipAddress:ip}, {
+                    $set: {
+                        status: stat,
+                    }
+                }).lean().exec(function (err, docs) {
+                    if (err) {
+                        console.log('Device Id record update failed.. ' + err);
+                    }
+                    else{
+                        // res.json('success');
+                        console.log('updated device');
+                        console.log(docs);
+                    }
+               })
+
+    })
     
 
     clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
@@ -142,14 +162,16 @@ module.exports = function(app) {
       });
 
     ws.on('close',function close(){
+        eventEmitter.emit('changeStatus',ws.key,false);
         delete clients[ws.key]
+        console.log(ws.key);
         console.log('disconnected : ');
     })
   
 
     });
 
-    server.listen(8080, '127.0.0.1',function listening() {
+    server.listen(8080, config.ipAddress,function listening() {
         // console.log(config.COMMON_CONFIG);
         console.log('Listening on %d', server.address().port);
     });

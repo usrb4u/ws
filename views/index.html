@@ -53,7 +53,9 @@
         <p>Device List:</p>
         </div>
         <div class="well">
-        <p>Upcoming Events..</p>
+            <ul>
+                <li ng-repeat="dev in devList">{{dev.deviceId}}</li>
+            </ul>
         </div>
         <button id="add" ng-click="register()"> Add New Device</button>
     </div>
