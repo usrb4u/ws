@@ -27,5 +27,13 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
         })
     }
     $scope.getDevices();
+
+    $scope.getAnalogInfo = function(ipAddr,devId){
+        $http.get('/api/wiredAnalog/'+devId+'/'+ipAddr).success(function(result){
+            if(result=='success'){
+                $window.location.href='/wired/'+devId+'/'+ipAddr;
+            }
+        })
+    }
     
 });

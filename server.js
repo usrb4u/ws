@@ -11,7 +11,8 @@ var bodyParser = require('body-parser');
 
 var cookieParser = require('cookie-parser');
 const app = express();
-
+var events = require('events');
+var evt = new events.EventEmitter();
 
 
 var routes = require('./routes/index');
@@ -31,8 +32,8 @@ app.use(bodyParser.json());
 app.set('view engine','html');
 app.use('/',routes);
 
-require('./routes/ws.js')(app);
-require('./routes/api.js')(app);
+require('./routes/ws.js')(app,evt);
+require('./routes/api.js')(app,evt);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

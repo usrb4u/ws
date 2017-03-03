@@ -54,7 +54,7 @@
         </div>
         <div class="well">
             <ul>
-                <li ng-repeat="dev in devList">{{dev.deviceId}}</li>
+                <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
             </ul>
         </div>
         <button id="add" ng-click="register()"> Add New Device</button>

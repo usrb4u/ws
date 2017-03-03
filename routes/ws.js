@@ -1,15 +1,15 @@
 
 const http = require('http');
 const WebSocket = require('ws');
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+// var events = require('events');
+// var eventEmitter = new events.EventEmitter();
 const url = require('url');
 var config = require('../config/config.js');
 
 var Device = require('../model/device');
 var mongoose = require('mongoose');
 
-module.exports = function(app) {
+module.exports = function(app,eventEmitter) {
     
     const server = http.createServer(app);
     var clients = {};
@@ -27,12 +27,14 @@ module.exports = function(app) {
     // console.log(location);
 
     ws.key = ws._socket.remoteAddress ;
+    ws.resp='';
     clients[ws.key] = ws;
+    clients[ws.resp]='';
     console.log(ws.key);
 
     // You might use location.query.access_token to authenticate or share sessions
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-    var resp='';
+    // var resp='';
     var initial_packet = {
         "PACKET_ID":"COMMON_CONFIG_DATA",
         "GPS_EN_STATUS":"DIASBLE",
@@ -45,9 +47,19 @@ module.exports = function(app) {
         "PROTOCOL_SELECTED":0,
         "DATA_FORMAT":0
     }
+
+    eventEmitter.on('COMMON_CONFIG_DATA',function(ipAddr,devId,resp){
+        console.log('Processing common config data');
+        initial_packet.DEVICEID = devId;
+        initial_packet.DS_IPADDR=ipAddr;
+        initial_packet.TS_IPADDR = ipAddr;
+        clients[ipAddr].send(JSON.stringify(initial_packet));
+        clients[ws.resp] = resp;
+    })
  
     eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
-        ws.send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+        // clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+        clients[ws.resp].json('success');
     });
 
     eventEmitter.on('REGDATA_RESPONSE',function(){
@@ -105,13 +117,13 @@ module.exports = function(app) {
       });
     });
     
-    eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
-        clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
-    });
+    // eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
+    //     clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+    // });
     
-    eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
-        clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
-    });
+    // eventEmitter.on('COMMON_CONFIG_SUCCESS',function(){
+    //     clients[ws.key].send(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
+    // });
     eventEmitter.on('changeStatus',function(ip,stat){
 
         Device.update({ipAddress:ip}, {
@@ -124,8 +136,8 @@ module.exports = function(app) {
                     }
                     else{
                         // res.json('success');
-                        console.log('updated device');
-                        console.log(docs);
+                        console.log('updated device for quit');
+                        // console.log(docs);
                     }
                })
 

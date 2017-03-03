@@ -1,6 +1,7 @@
 var Device = require('../model/device');
 
-module.exports = function(app) {
+
+module.exports = function(app,eventEmitter) {
     app.get('/api/getDevices/:userId', function(req,res){
             
             Device.find({userName:req.params.userId}).lean().exec(function(err, rec) {
@@ -38,9 +39,21 @@ module.exports = function(app) {
 
     })
 
-    app.get('/api/wiredAnalog/:devId',function(req,res){
+    app.get('/api/wiredAnalog/:devId/:devIp',function(req,res){
         console.log(req.params.devId);
-        res.json('success');
+        console.log(req.params.devIp);
+        Device.find({deviceId:req.params.devId,ipAddress:req.params.devIp}).lean().exec(function(err,rec){
+            if(rec.length==1){
+                console.log(rec);
+                if(!rec[0].status)
+                    res.json('offline');
+                else {
+                    eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId,res)
+                    // eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId)
+                    // res.json('success');
+                }
+            }
+        })
     })
 
 
