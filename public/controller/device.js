@@ -12,7 +12,7 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
     $scope.getDevices = function(){
         $http.get('/api/getDevices/'+$scope.userName).success(function(result){
             $scope.devList = result;
-            console.log(result);
+            // console.log(result);
         })
     }
 
@@ -22,7 +22,8 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
             if(result=='success'){
                 alert('Registered Successfully');
                 $window.location.href='/';
-            }
+            }else
+                alert(result);
             
         })
     }
@@ -32,7 +33,8 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
         $http.get('/api/wiredAnalog/'+devId+'/'+ipAddr).success(function(result){
             if(result=='success'){
                 $window.location.href='/wired/'+devId+'/'+ipAddr;
-            }
+            }else
+                alert(result);
         })
     }
     

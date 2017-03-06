@@ -14,126 +14,149 @@
   
 </head>
 <body ng-app="deviceInfo" >
-<div class="container">
-  <nav class="navbar navbar-inverse">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div ng-controller="wiredCtrl">
+    <div class="container" >
+      <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </nav>
 
-  <nav class="navbar">
-    <!--<div class="navbar-header">
-      <a class="navbar-brand" href="#">Device Parameters</a>
-    </div>-->
-    <div class="container " id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li ><div class="well"><a href="#">Device Parameters</a></div></li>
-        <li class="active"><div class="well"><a href="#">Wired End Points</a></div></li>
-        <li><div class="well"><a href="#">Wireless End Points</a></div></li>
-        <li><div class="well"><a href="#">FW Update</a></div></li>
-      </ul>
-    </div>
-  </nav>
+      <nav class="navbar">
+        <!--<div class="navbar-header">
+          <a class="navbar-brand" href="#">Device Parameters</a>
+        </div>-->
+        <div class="container " id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li ><div class="well"><a href="#">Device Parameters</a></div></li>
+            <li class="active"><div class="well"><a href="#">Wired End Points</a></div></li>
+            <li><div class="well"><a href="#">Wireless End Points</a></div></li>
+            <li><div class="well"><a href="#">FW Update</a></div></li>
+          </ul>
+        </div>
+      </nav>
 
-</div>
-<div class="container">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-      
-      <div class="well"><a href="#">Analog Inputs</a></div>
-     <div class="well"><a href="#">Digital Inputs</a></div>
-      <div class="well"><a href="#">Analog Outputs</a></div>
-      <div class="well"><a href="#">Digital Outputs</a></div>
-      <div class="well"><a href="#">Encoder Inputs</a></div>
     </div>
-    <div class="col-sm-8"> 
-      <form>
-        <table>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Enable / Disbale</th>
-            <th>Name</th>
-            <th>Scaffolder</th>
-            <th>Offset</th>
-            <th>Rate</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td><input type="checkbox" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><select class="form-control">
-                <option >Select</option>
-                <option value='0'>1 Min</option>
-                <option value='1'>2 Min</option>
-                <option value='2'>3 Min</option>
-                <option value='3'>4 Min</option>
-                <option value='4'>5 Min</option>
-                <option value='5'>10 Min</option>
-                <option value='6'>15 Min</option>
-                <option value='7'>20 Min</option>
-                <option value='8'>25 Min</option>
-                <option value='9'>30 Min</option>
-                <option value='10'>1 Hour</option>
-                <option value='11'>5 Hours</option>
-                <option value='12'>10 Hours</option>
-                <option value='13'>15 Hours</option>
-                <option value='14'>20 Hours</option>
-                <option value='15'>24 Hours</option>
-              </select></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><input type="checkbox" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><select class="form-control">
-                <option >Select</option>
-                <option value='0'>1 Min</option>
-                <option value='1'>2 Min</option>
-                <option value='2'>3 Min</option>
-                <option value='3'>4 Min</option>
-                <option value='4'>5 Min</option>
-                <option value='5'>10 Min</option>
-                <option value='6'>15 Min</option>
-                <option value='7'>20 Min</option>
-                <option value='8'>25 Min</option>
-                <option value='9'>30 Min</option>
-                <option value='10'>1 Hour</option>
-                <option value='11'>5 Hours</option>
-                <option value='12'>10 Hours</option>
-                <option value='13'>15 Hours</option>
-                <option value='14'>20 Hours</option>
-                <option value='15'>24 Hours</option>
-              </select></td>
-          </tr>
-        </table>
-      </form>
-    </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
+    <div class="container">    
+      <div class="row content">
+        <div class="col-sm-2 sidenav">
+          
+          <div class="well" ng-init="devId = <%= devId%>;ipaddr = <%= ipAddr%>;"><a href="#">Analog Inputs</a></div>
+        <div class="well"><a href="#">Digital Inputs</a></div>
+          <div class="well"><a href="#">Analog Outputs</a></div>
+          <div class="well"><a href="#">Digital Outputs</a></div>
+          <div class="well"><a href="#">Encoder Inputs</a></div>
+        </div>
+        <div class="col-sm-8"> 
+          <form >
+            <input type="hidden" ng-init="devId='<%- devId %>'">
+            <input type="hidden" ng-init="ipAddr='<%- ipAddr %>'">
+            <table>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Enable / Disbale</th>
+                <th>Name</th>
+                <th>Scaffolder</th>
+                <th>Offset</th>
+                <th>Rate</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog1.AIN1_STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.AIN1_NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.AIN1_SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.AIN1_OFFSET"></td>
+                <td><select class="form-control" ng-model="analog1.AIN1_RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog2.AIN2_STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.AIN2_NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.AIN2_SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.AIN2_OFFSET"></td>
+                <td><select class="form-control" ng-model="analog2.AIN2_RATE">
+                    <option >Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class="col-sm-2 sidenav">
+          <div >
+            <div class="well">
+              <p>Device List:</p>
+            </div>
+            <div class="well">
+                <ul>
+                    <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
+                </ul>
+            </div>
+            
+          </div>
+          <div>
+            <table>
+              <tr>
+                <td><button id="add" ng-click="register()">Add New</button></td>
+                <td><button id="add" ng-click="remove()"> Remove</button></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><button id="add" ng-click="connect()"> Connect</button></td>
+                <td><button id="add" ng-click="send()"> Send</button></td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
 <footer class="container">
   <p>Footer Text</p>
 </footer>

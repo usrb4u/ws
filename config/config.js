@@ -1,7 +1,7 @@
 // config/database.js
 module.exports = {
     'dbUri' : 'mongodb://localhost:27017/tangent', 
-    'ipAddress': '127.0.0.1',
+    'ipAddress': '192.168.1.101',
     'COMMON_CONFIG':{
                         "PACKET_ID":"COMMON_CONFIG_DATA",
                         "GPS_EN_STATUS":"DIASBLE",
