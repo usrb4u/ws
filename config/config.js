@@ -2,6 +2,8 @@
 module.exports = {
     'dbUri' : 'mongodb://localhost:27017/tangent', 
     'ipAddress': '192.168.1.101',
+     'TCP_PORT':8080,
+    'HTTP_PORT':8000,
     'COMMON_CONFIG':{
                         "PACKET_ID":"COMMON_CONFIG_DATA",
                         "GPS_EN_STATUS":"DIASBLE",

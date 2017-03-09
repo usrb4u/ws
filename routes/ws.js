@@ -31,6 +31,8 @@ module.exports = function(app,eventEmitter) {
         "DATA_XMIT_FREQ":0
     }
 
+    var resp_success = true;;
+
     eventEmitter.on('COMMON_CONFIG_DATA',function(ipAddr,devId,resp,tVal){
         console.log('Processing common config data');
         initial_packet.DEVICEID = devId;
@@ -55,7 +57,10 @@ module.exports = function(app,eventEmitter) {
         if(clients[ipAddr].count==clients[ipAddr].mcount){
             clients[ipAddr].mcount=0;
             clients[ipAddr].count=0;
-            clients[ipAddr].resp.json('success');
+            if(resp_success)
+                clients[ipAddr].resp.json('success');
+            else
+                clients[ipAddr].resp.json('failed');
             
         }
             
@@ -98,6 +103,7 @@ module.exports = function(app,eventEmitter) {
                     Device.update({deviceId:devId}, {
                         $set: {
                             status: true,
+                            ipAddress:ipAddress
                         }
                     }).lean().exec(function (err, docs) {
                         if (err) {
@@ -123,11 +129,40 @@ module.exports = function(app,eventEmitter) {
         eventEmitter.emit('CL_RESP',ipAddr);
     });
 
+    eventEmitter.on('UM_CONFIG_FAILURE',function(ipAddr){
+        resp_success = false;
+        eventEmitter.emit('CL_RESP',ipAddr);
+    });
+
     eventEmitter.on('UM_AIN1_CONFIG',function(ipAddr,data){
         clients[ipAddr].write(JSON.stringify(data));
     });
     
     eventEmitter.on('UM_AIN2_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+
+    eventEmitter.on('UM_DIN1_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+    
+    eventEmitter.on('UM_DIN2_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+
+    eventEmitter.on('UM_AOUT1_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+    
+    eventEmitter.on('UM_AOUT2_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+
+    eventEmitter.on('UM_DOUT1_CONFIG',function(ipAddr,data){
+        clients[ipAddr].write(JSON.stringify(data));
+    });
+    
+    eventEmitter.on('UM_DOUT2_CONFIG',function(ipAddr,data){
         clients[ipAddr].write(JSON.stringify(data));
     });
 
@@ -152,85 +187,89 @@ module.exports = function(app,eventEmitter) {
 
     netServ.on('connection', function connection(ws) {
     
-    console.log('connected new Device')
-    console.log(ws.remoteAddress);
-    // client.push(ws);
-    ws.key = ws.remoteAddress ;
-    ws.resp='';
-    ws.count=0;
-    ws.mcount=0;
-    // ws.flag=true;
-    clients[ws.key] = ws;
-    // console.log(clients);
-    // var status = false;
-    // console.log(ws.key);
-
-    // You might use location.query.access_token to authenticate or share sessions
-    // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-    // var resp='';
-    
-
-    
-    
-
-    clients[ws.key].write(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
-
-    ws.on('data', function incoming(message) {
-        console.log(message.toString('utf-8'));
-        message = message.toString('utf-8').replace('}{', '} , {')
-        var mess = message.toString('utf-8').split(' , ');
-            for(var i=0; i<mess.length; i++) {
-                resp = JSON.parse(mess[i]);
-            // console.log(resp);
-            
-            switch(resp.PACKET_ID) {
-            case 'COMMON_CONFIG_SUCCESS':
-                // console.log(resp);
-                eventEmitter.emit('COMMON_CONFIG_SUCCESS',ws.remoteAddress);
-                break;
-            case 'REGDATA_RESPONSE':
-                // console.log(resp);
-                eventEmitter.emit('REGDATA_RESPONSE',ws.remoteAddress);
-                break;
-            case 'UM_AIN1_CONFIG':
-                // console.log(resp);
-                eventEmitter.emit('UM_AIN1_CONFIG');
-                break;
-            case 'UM_CONFIG_SUCCESS' :
-                // console.log(resp);
-                eventEmitter.emit('UM_CONFIG_SUCCESS',ws.remoteAddress);
-                break;
-            case 'DEVID_RESPONSE':
-                // console.log(resp);
-                // clients[ws._socket.remoteAddress] = ws;
-                eventEmitter.emit('DEVID_RESPONSE',resp.DEVID,ws.remoteAddress);
-            }
-        }
-               
-      });
-
-    ws.on('end',function close(){
-        eventEmitter.emit('changeStatus',ws.key,false);
-        ws.pause();
-        clients[ws.key] = '';
-        
-        delete clients[ws.key]
-        delete clients[""];
+        console.log('connected new Device')
+        console.log(ws.remoteAddress);
+        // client.push(ws);
+        ws.key = ws.remoteAddress ;
+        ws.resp='';
+        ws.count=0;
+        ws.mcount=0;
+        // ws.flag=true;
+        clients[ws.key] = ws;
         // console.log(clients);
+        // var status = false;
+        // console.log(ws.key);
 
-        console.log(ws.key);
-        console.log('disconnected : ');
-    })
+        // You might use location.query.access_token to authenticate or share sessions
+        // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
+        // var resp='';
+        
+
+        
+        
+
+        clients[ws.key].write(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
+
+        ws.on('data', function incoming(message) {
+            console.log(message.toString('utf-8'));
+            message = message.toString('utf-8').replace('}{', '} , {')
+            var mess = message.toString('utf-8').split(' , ');
+                for(var i=0; i<mess.length; i++) {
+                    resp = JSON.parse(mess[i]);
+                // console.log(resp);
+                
+                switch(resp.PACKET_ID) {
+                case 'COMMON_CONFIG_SUCCESS':
+                    // console.log(resp);
+                    eventEmitter.emit('COMMON_CONFIG_SUCCESS',ws.remoteAddress);
+                    break;
+                case 'REGDATA_RESPONSE':
+                    // console.log(resp);
+                    eventEmitter.emit('REGDATA_RESPONSE',ws.remoteAddress);
+                    break;
+                case 'UM_AIN1_CONFIG':
+                    // console.log(resp);
+                    eventEmitter.emit('UM_AIN1_CONFIG');
+                    break;
+                case 'UM_CONFIG_SUCCESS' :
+                    // console.log(resp);
+                    eventEmitter.emit('UM_CONFIG_SUCCESS',ws.remoteAddress);
+                    break;
+                case 'UM_CONFIG_FAILURE':
+                    eventEmitter.emit('UM_CONFIG_FAILURE',ws.remoteAddress);
+                    break;
+                    
+                case 'DEVID_RESPONSE':
+                    // console.log(resp);
+                    // clients[ws._socket.remoteAddress] = ws;
+                    eventEmitter.emit('DEVID_RESPONSE',resp.DEVID,ws.remoteAddress);
+                }
+            }
+                
+        });
+
+        ws.on('end',function close(){
+            eventEmitter.emit('changeStatus',ws.key,false);
+            ws.pause();
+            clients[ws.key] = '';
+            
+            delete clients[ws.key]
+            delete clients[""];
+            // console.log(clients);
+
+            console.log(ws.key);
+            console.log('disconnected : ');
+        })
   
 
     });
 
-    netServ.listen(8080, config.ipAddress,function listening() {
+    netServ.listen(config.TCP_PORT, config.ipAddress,function listening() {
         // console.log(config.COMMON_CONFIG);
-        console.log('Listening on %d', netServ.address().port);
+        console.log('TCP Server Listening on %d', config.TCP_PORT);
     });
-    server.listen(8000,config.ipAddress,function(){
-        console.log('http server running on 8000');
+    server.listen(config.HTTP_PORT,config.ipAddress,function(){
+        console.log('http server running on '+config.HTTP_PORT);
     })
 
 

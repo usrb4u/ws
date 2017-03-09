@@ -47,13 +47,30 @@ ws.on('data', function incoming(data, flags) {
             emtr.emit('DEV_ID_REQUEST');
             break;
         case 'UM_AIN1_CONFIG':
-            // console.log(pkt);
-            // emtr.emit('UM_AIN1_CONFIG');
             ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
             break;
         case 'UM_AIN2_CONFIG' :
-            // console.log(pkt);
-            // emtr.emit('UM_AIN2_CONFIG');
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        
+        case 'UM_AOUT1_CONFIG':
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        case 'UM_AOUT2_CONFIG' :
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        
+        case 'UM_DIN1_CONFIG':
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        case 'UM_DIN2_CONFIG' :
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        
+        case 'UM_DOUT1_CONFIG':
+            ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
+            break;
+        case 'UM_DOUT2_CONFIG' :
             ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
             break;
         case 'DEV_REG_REQUEST':
@@ -63,9 +80,4 @@ ws.on('data', function incoming(data, flags) {
         }
     }
     
-//   console.log(`Roundtrip time: ${Date.now() - data} ms`, flags);
-
-//   setTimeout(function timeout() {
-//     ws.send('Acknowledgement success');
-//   }, 500);
 });

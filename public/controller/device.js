@@ -22,7 +22,9 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
             if(result=='success'){
                 alert('Registered Successfully');
                 $window.location.href='/';
-            }else
+            }else if(result=='exists')
+                alert('Already registered with this device id: '+$scope.regDev.devId)
+            else
                 alert(result);
             
         })
