@@ -31,7 +31,6 @@ module.exports = function(app,eventEmitter) {
         "DATA_XMIT_FREQ":0
     }
 
-    var resp_success = true;;
 
     eventEmitter.on('COMMON_CONFIG_DATA',function(ipAddr,devId,resp,tVal){
         console.log('Processing common config data');
@@ -57,10 +56,11 @@ module.exports = function(app,eventEmitter) {
         if(clients[ipAddr].count==clients[ipAddr].mcount){
             clients[ipAddr].mcount=0;
             clients[ipAddr].count=0;
-            if(resp_success)
+            if(clients[ipAddr].resp_success)
                 clients[ipAddr].resp.json('success');
             else
                 clients[ipAddr].resp.json('failed');
+                clients[ipAddr].resp_success = true;
             
         }
             
@@ -130,7 +130,7 @@ module.exports = function(app,eventEmitter) {
     });
 
     eventEmitter.on('UM_CONFIG_FAILURE',function(ipAddr){
-        resp_success = false;
+        clients[ipAddr].resp_success = false;
         eventEmitter.emit('CL_RESP',ipAddr);
     });
 
@@ -194,6 +194,7 @@ module.exports = function(app,eventEmitter) {
         ws.resp='';
         ws.count=0;
         ws.mcount=0;
+        ws.resp_success = true;
         // ws.flag=true;
         clients[ws.key] = ws;
         // console.log(clients);
@@ -212,7 +213,7 @@ module.exports = function(app,eventEmitter) {
 
         ws.on('data', function incoming(message) {
             console.log(message.toString('utf-8'));
-            message = message.toString('utf-8').replace('}{', '} , {')
+            message = message.toString('utf-8').replace(/}{/g , "} , {")
             var mess = message.toString('utf-8').split(' , ');
                 for(var i=0; i<mess.length; i++) {
                     resp = JSON.parse(mess[i]);
@@ -248,13 +249,17 @@ module.exports = function(app,eventEmitter) {
                 
         });
 
+        ws.on('error',function(err){
+            console.log('Error event triggered '+err);
+            eventEmitter.emit('changeStatus',ws.key,false);
+        })
         ws.on('end',function close(){
             eventEmitter.emit('changeStatus',ws.key,false);
             ws.pause();
             clients[ws.key] = '';
             
             delete clients[ws.key]
-            delete clients[""];
+            // delete clients[""];
             // console.log(clients);
 
             console.log(ws.key);

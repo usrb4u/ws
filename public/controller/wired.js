@@ -119,7 +119,12 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
         $scope.analog["devInfo"] = devInfo;
 
         $http.post('/api/wiredpoints',$scope.analog).success(function(result){
-            alert(result);
+            
+            if(result=='success'){
+                alert('Updated Successfully');
+                $window.location.href='/';
+            }else
+                alert(result);
         })
 
         console.log($scope.analog);
@@ -127,6 +132,9 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
 
     $scope.send = function(){
         
+    }
+    $scope.changeVal = function(input){
+        $scope.wiredpoints = input;
     }
 
     $scope.getAnalogInfo = function(ipAddr,devId){

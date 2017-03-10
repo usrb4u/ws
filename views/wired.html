@@ -33,14 +33,14 @@
         </div>
       </nav>
 
-      <nav class="navbar">
+      <nav class="navbar navbar-light" style="background-color: #f1f1f1; margin-top: 10px;">
         <!--<div class="navbar-header">
           <a class="navbar-brand" href="#">Device Parameters</a>
         </div>-->
         <div class="container " id="myNavbar">
           <ul class="nav navbar-nav">
             <li ><div class="well"><a href="#">Device Parameters</a></div></li>
-            <li class="active"><div class="well"><a href="#">Wired End Points</a></div></li>
+            <li class="active"><div class="well"><h4>Wired End Points</h4></div></li>
             <li><div class="well"><a href="#">Wireless End Points</a></div></li>
             <li><div class="well"><a href="#">FW Update</a></div></li>
           </ul>
@@ -49,21 +49,31 @@
 
     </div>
     <div class="container" ng-init="devId = '<%- devId%>';ipAddr = '<%- ipAddr%>';">    
-      <div class="row content">
+      <div class="row content" style="margin: 3px;">
         <div class="col-sm-2 sidenav">
           
-          <div class="well" ><a href="#" ng-click="wiredpoints='ai'">Analog Inputs</a></div>
-        <div class="well"><a href="#" ng-click="wiredpoints='di'">Digital Inputs</a></div>
-          <div class="well"><a href="#" ng-click="wiredpoints='ao'">Analog Outputs</a></div>
-          <div class="well"><a href="#" ng-click="wiredpoints='do'">Digital Outputs</a></div>
-          <div class="well"><a href="#" ng-click="wiredpoints='ei'">Encoder Inputs</a></div>
+          <div class="well" ng-if="wiredpoints=='ai'"><h4>Analog Inputs</h4></div>
+          <div class="well" ng-if="wiredpoints!='ai'"><a href="#" ng-click="changeVal('ai')">Analog Inputs</a></div>
+          
+          <div class="well" ng-if="wiredpoints=='di'"><h4>Digital Inputs</h4></div>
+          <div class="well" ng-if="wiredpoints!='di'"><a href="#" ng-click="changeVal('di')">Digital Inputs</a></div>
+
+          <div class="well" ng-if="wiredpoints=='ao'"><h4>Analog Outputs</h4></div>
+          <div class="well" ng-if="wiredpoints!='ao'"><a href="#" ng-click="changeVal('ao')">Analog Outputs</a></div>
+
+          <div class="well" ng-if="wiredpoints=='do'"><h4>Digital Outputs</h4></div>
+          <div class="well" ng-if="wiredpoints!='do'"><a href="#" ng-click="changeVal('do')">Digital Outputs</a></div>
+        
+          <div class="well" ng-if="wiredpoints=='ei'"><h4>Encoder Inputs</h4></div>
+          <div class="well" ng-if="wiredpoints!='ei'"><a href="#" ng-click="changeVal('ei')">Encoder Inputs</a></div>
+
         </div>
         <div class="col-sm-8" ng-if="wiredpoints=='ai'"> 
-          <form >
+          <!--<form >
             <input type="hidden" ng-init="devId='<%- devId %>'">
-            <input type="hidden" ng-init="ipAddr='<%- ipAddr %>'">
-            <table>
-              <tr>
+            <input type="hidden" ng-init="ipAddr='<%- ipAddr %>'">-->
+            <table class="table table-hover">
+              <tr class="active">
                 <th>&nbsp;</th>
                 <th>Enable / Disbale</th>
                 <th>Name</th>
@@ -129,10 +139,10 @@
 
         <div class="col-sm-8" ng-if="wiredpoints=='di'"> 
           <form >
-            <input type="hidden" ng-init="devId='<%- devId %>'">
-            <input type="hidden" ng-init="ipAddr='<%- ipAddr %>'">
-            <table>
-              <tr>
+            <!--<input type="hidden" ng-init="devId='<%- devId %>'">
+            <input type="hidden" ng-init="ipAddr='<%- ipAddr %>'">-->
+            <table class="table table-hover">
+              <tr class="active">
                 
                 <th>Enable / Disbale</th>
                 <th>&nbsp;</th>
@@ -200,8 +210,8 @@
 
         <div class="col-sm-8" ng-if="wiredpoints=='ao'"> 
           <form >
-            <table>
-              <tr>
+            <table class="table table-hover">
+              <tr class="active">
                 <th>&nbsp;</th>
                 <th>Enable / Disbale</th>
                 <th>Name</th>
@@ -267,9 +277,8 @@
 
         <div class="col-sm-8" ng-if="wiredpoints=='do'"> 
           <form >
-            <table>
-              <tr>
-                
+            <table class="table table-hover">
+              <tr class="active">
                 <th>Enable / Disbale</th>
                 <th>&nbsp;</th>
                 <th>Name</th>

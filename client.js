@@ -3,7 +3,7 @@ var events = require('events');
 var emtr = new events.EventEmitter();
 
 const ws = new WebSocket.Socket();
-ws.connect(8080,'192.168.1.101',function(){
+ws.connect(8080,'0.0.0.0',function(){
     console.log('connected');
     // ws.write('From Client:::');
 })
@@ -33,7 +33,7 @@ ws.on('close', function close() {
 
 ws.on('data', function incoming(data, flags) {
     console.log(data);
-    data = data.toString('utf-8').replace('}{', '} , {')
+    data = data.toString('utf-8').replace(/}{/g , "} , {")
     var mess = data.toString('utf-8').split(' , ')
     for(var i=0; i<mess.length; i++) {
     
