@@ -37,11 +37,18 @@ module.exports = function(app,eventEmitter) {
         initial_packet.DEVICEID = devId;
         initial_packet.DS_IPADDR=ipAddr;
         initial_packet.TS_IPADDR = ipAddr;
-        clients[ipAddr].write(JSON.stringify(initial_packet));
+        if(clients[ipAddr]!=undefined){
+            clients[ipAddr].write(JSON.stringify(initial_packet));
         clients[ipAddr].mcount=tVal;
         clients[ipAddr].count=0;
         if(resp!==undefined)
             clients[ipAddr].resp = resp;
+        }else {
+            eventEmitter.emit('changeStatus',ipAddr,false);
+            resp.json('offline');
+        }
+        
+        
         // status = false;
     })
  
@@ -171,6 +178,7 @@ module.exports = function(app,eventEmitter) {
         Device.update({ipAddress:ip}, {
                     $set: {
                         status: stat,
+                        ipAddress:''
                     }
                 }).lean().exec(function (err, docs) {
                     if (err) {
@@ -197,18 +205,7 @@ module.exports = function(app,eventEmitter) {
         ws.resp_success = true;
         // ws.flag=true;
         clients[ws.key] = ws;
-        // console.log(clients);
-        // var status = false;
-        // console.log(ws.key);
-
-        // You might use location.query.access_token to authenticate or share sessions
-        // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-        // var resp='';
         
-
-        
-        
-
         clients[ws.key].write(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
 
         ws.on('data', function incoming(message) {
@@ -248,6 +245,10 @@ module.exports = function(app,eventEmitter) {
             }
                 
         });
+
+        ws.on('close',function(){
+            console.log('close event called');
+        })
 
         ws.on('error',function(err){
             console.log('Error event triggered '+err);

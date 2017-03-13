@@ -2,11 +2,24 @@ const WebSocket = require('net');
 var events = require('events');
 var emtr = new events.EventEmitter();
 
+argv = require('optimist')
+.usage('Usage: client.js -s <server_name> -d <device_id>')
+.alias('s', 'server')
+.describe('s', 'Hostname/IP of the server.')
+.default('s', 'localhost')
+.alias('d', 'device')
+.describe('Device ID')
+.default('dev-foo')
+.argv;
+
+var SERVER = argv.s || 'localhost';
+var DEV_ID = argv.d || 'DEV2134';
+
 const ws = new WebSocket.Socket();
-ws.connect(8080,'0.0.0.0',function(){
+ws.connect(8080,SERVER,function(){
     console.log('connected');
-    // ws.write('From Client:::');
 })
+
 
 emtr.on('COMMON_CONFIG_DATA',function(){
 

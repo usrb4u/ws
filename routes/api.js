@@ -51,7 +51,8 @@ module.exports = function(app,eventEmitter) {
                     // eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId)
                     // res.json('success');
                 }
-            }
+            }else
+                res.json('Device is in Offline');
         })
     });
 

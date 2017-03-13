@@ -65,17 +65,15 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
 
     $scope.remove = function(){        
         $http.put('/api/remove/'+$scope.devId+'/'+$scope.ipAddr).success(function(result){
-            if(result=='success')
+            if(result=='success') {
                 alert('Removed device Id from your list');
-                $scope.getDevices();
+                // $scope.getDevices();
+                $window.location.href='/';
+            }
         })
     }
 
     var changeStatus = function(){
-        // if($scope.analog1.AIN1_STATUS)
-        //     $scope.analog1.AIN1_STATUS = 'ENABLE';
-        // else
-        //     $scope.analog1.AIN1_STATUS = 'DISABLE';
 
             $scope.analog1.AIN1_STATUS ? $scope.analog1.AIN1_STATUS='ENABLE':$scope.analog1.AIN1_STATUS='DISABLE';
             $scope.analog2.AIN2_STATUS ? $scope.analog2.AIN2_STATUS='ENABLE':$scope.analog2.AIN2_STATUS='DISABLE';
@@ -88,12 +86,6 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
 
             $scope.dout1.DOUT1_STATUS ? $scope.dout1.DOUT1_STATUS='ENABLE':$scope.dout1.AOUT1_STATUS='DISABLE';
             $scope.dout2.DOUT2_STATUS ? $scope.dout2.DOUT2_STATUS='ENABLE':$scope.dout2.AOUT2_STATUS='DISABLE';
-
-        // if($scope.analog2.AIN2_STATUS)
-        //     $scope.analog2.AIN2_STATUS = 'ENABLE';
-        // else
-        //     $scope.analog2.AIN2_STATUS = 'DISABLE';
-
 
     }
 
@@ -138,6 +130,8 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
     }
 
     $scope.getAnalogInfo = function(ipAddr,devId){
+        if(ipAddr=='')
+            ipAddr='0.0.0.0';
         $http.get('/api/wiredAnalog/'+devId+'/'+ipAddr).success(function(result){
             if(result=='success'){
                 $window.location.href='/wired/'+devId+'/'+ipAddr;
