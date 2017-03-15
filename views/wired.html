@@ -83,12 +83,12 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input type="checkbox" class="form-control" ng-model="analog1.AIN1_STATUS"></td>
-                <td><input type="text" class="form-control" ng-model="analog1.AIN1_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="analog1.AIN1_SCALEFACTOR"></td>
-                <td><input type="text" class="form-control" ng-model="analog1.AIN1_OFFSET"></td>
-                <td><select class="form-control" ng-model="analog1.AIN1_RATE">
-                    <option selected>Select</option>
+                <td><input type="checkbox" class="form-control" ng-model="analog1.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog1.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog1.RATE">
+                    <option  value='' selected>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -109,12 +109,12 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input type="checkbox" class="form-control" ng-model="analog2.AIN2_STATUS"></td>
-                <td><input type="text" class="form-control" ng-model="analog2.AIN2_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="analog2.AIN2_SCALEFACTOR"></td>
-                <td><input type="text" class="form-control" ng-model="analog2.AIN2_OFFSET"></td>
-                <td><select class="form-control" ng-model="analog2.AIN2_RATE">
-                    <option >Select</option>
+                <td><input type="checkbox" class="form-control" ng-model="analog2.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog2.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog2.RATE">
+                    <option value=''>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -152,13 +152,13 @@
                 <th>Rate</th>
               </tr>
               <tr>
-                <td><input type="checkbox" class="form-control" ng-model="digital1.DIN1_STATUS"></td>
+                <td><input type="checkbox" class="form-control" ng-model="digital1.STATUS"></td>
                 <td></td>
-                <td><input type="text" class="form-control" ng-model="digital1.DIN1_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="digital1.DIN1_ONLABEL"></td>
-                <td><input type="text" class="form-control" ng-model="digital1.DIN1_OFFLABEL"></td>
-                <td><select class="form-control" ng-model="digital1.DIN1_RATE">
-                    <option selected>Select</option>
+                <td><input type="text" class="form-control" ng-model="digital1.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital1.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital1.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital1.RATE">
+                    <option selected value=''>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -178,13 +178,13 @@
                   </select></td>
               </tr>
               <tr>
-                <td><input type="checkbox" class="form-control" ng-model="digital2.DIN1_STATUS"></td>
+                <td><input type="checkbox" class="form-control" ng-model="digital2.STATUS"></td>
                 <td></td>
-                <td><input type="text" class="form-control" ng-model="digital2.DIN2_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="digital2.DIN2_ONLABEL"></td>
-                <td><input type="text" class="form-control" ng-model="digital2.DIN2_OFFLABEL"></td>
-                <td><select class="form-control" ng-model="digital2.DIN2_RATE">
-                    <option >Select</option>
+                <td><input type="text" class="form-control" ng-model="digital2.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital2.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital2.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital2.RATE">
+                    <option value=''>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -221,12 +221,12 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input type="checkbox" class="form-control" ng-model="aout1.AOUT1_STATUS"></td>
-                <td><input type="text" class="form-control" ng-model="aout1.AOUT1_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="aout1.AOUT1_SCALEFACTOR"></td>
-                <td><input type="text" class="form-control" ng-model="aout1.AOUT1_OFFSET"></td>
-                <td><select class="form-control" ng-model="aout1.AIN1_RATE">
-                    <option selected>Select</option>
+                <td><input type="checkbox" class="form-control" ng-model="aout1.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="aout1.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="aout1.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="aout1.OFFSET"></td>
+                <td><select class="form-control" ng-model="aout1.RATE">
+                    <option selected value=''>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -247,12 +247,12 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input type="checkbox" class="form-control" ng-model="aout2.AIN2_STATUS"></td>
-                <td><input type="text" class="form-control" ng-model="aout2.AIN2_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="aout2.AIN2_SCALEFACTOR"></td>
-                <td><input type="text" class="form-control" ng-model="aout2.AIN2_OFFSET"></td>
-                <td><select class="form-control" ng-model="aout2.AIN2_RATE">
-                    <option >Select</option>
+                <td><input type="checkbox" class="form-control" ng-model="aout2.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="aout2.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="aout2.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="aout2.OFFSET"></td>
+                <td><select class="form-control" ng-model="aout2.RATE">
+                    <option value=''>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
                     <option value='2'>3 Min</option>
@@ -287,12 +287,12 @@
                 <th>Rate</th>
               </tr>
               <tr>
-                <td><input type="checkbox" class="form-control" ng-model="dout1.DOUT1_STATUS"></td>
+                <td><input type="checkbox" class="form-control" ng-model="dout1.STATUS"></td>
                 <td></td>
-                <td><input type="text" class="form-control" ng-model="dout1.DOUT1_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="dout1.DOUT1_ONLABEL"></td>
-                <td><input type="text" class="form-control" ng-model="dout1.DOUT1_OFFLABEL"></td>
-                <td><select class="form-control" ng-model="dout1.DOUT1_RATE">
+                <td><input type="text" class="form-control" ng-model="dout1.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout1.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout1.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout1.RATE">
                     <option selected>Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>
@@ -313,12 +313,12 @@
                   </select></td>
               </tr>
               <tr>
-                <td><input type="checkbox" class="form-control" ng-model="dout2.DOUT2_STATUS"></td>
+                <td><input type="checkbox" class="form-control" ng-model="dout2.STATUS"></td>
                 <td></td>
-                <td><input type="text" class="form-control" ng-model="dout2.DOUT2_NAME"></td>
-                <td><input type="text" class="form-control" ng-model="dout2.DOUT2_ONLABEL"></td>
-                <td><input type="text" class="form-control" ng-model="dout2.DOUT2_OFFLABEL"></td>
-                <td><select class="form-control" ng-model="dout2.DOUT2_RATE">
+                <td><input type="text" class="form-control" ng-model="dout2.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout2.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout2.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout2.RATE">
                     <option >Select</option>
                     <option value='0'>1 Min</option>
                     <option value='1'>2 Min</option>

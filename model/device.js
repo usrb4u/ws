@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var deviceSchema = mongoose.Schema({
 	deviceId:String,
 	ipAddress:String,
+	port:String,
 	status: Boolean,
 	aliasName:String,
     userName:String,

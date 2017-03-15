@@ -31,7 +31,7 @@ emtr.on('DEV_REG_REQUEST',function(){
 })
 
 emtr.on('DEV_ID_REQUEST',function(){
-    ws.write(JSON.stringify({"PACKET_ID":"DEVID_RESPONSE","DEVID":"DEV2134"}))
+    ws.write(JSON.stringify({"PACKET_ID":"DEVID_RESPONSE","DEVID":DEV_ID}))
 })
 
 ws.on('open', function open() {
@@ -59,7 +59,7 @@ ws.on('data', function incoming(data, flags) {
         case 'DEV_ID_REQUEST':
             emtr.emit('DEV_ID_REQUEST');
             break;
-        case 'UM_AIN1_CONFIG':
+        case 'UM_CONFIG_DATA':
             ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
             break;
         case 'UM_AIN2_CONFIG' :

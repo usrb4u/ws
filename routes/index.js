@@ -14,4 +14,7 @@ router.get('/wired/:devId/:ipAddr',function(req,res){
     res.render('wired',{'devId':req.params.devId,'ipAddr':req.params.ipAddr});
 })
 
+router.get('/devparams',function(req,res){
+    res.render('devparams');
+})
 module.exports = router;

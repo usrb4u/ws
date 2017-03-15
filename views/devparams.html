@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Wired Endpoints</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/script/style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/js/angular.min.js"></script>
+  <script src="/controller/device.js"></script>
+  
+</head>
+<body ng-app="deviceInfo" >
+  <div ng-controller="wiredCtrl">
+    <div class="container" >
+      <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <nav class="navbar navbar-light" style="background-color: #f1f1f1; margin-top: 10px;">
+        <!--<div class="navbar-header">
+          <a class="navbar-brand" href="#">Device Parameters</a>
+        </div>-->
+        <div class="container " id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li ><div class="well"><a href="#"><h4>Common Configurations</h4></a></div></li>
+            <li class="active"><div class="well">Wired End Points</div></li>
+            <li><div class="well"><a href="#">Wireless End Points</a></div></li>
+            <li><div class="well"><a href="#">FW Update</a></div></li>
+          </ul>
+        </div>
+      </nav>
+
+    </div>
+    <div class="container" >    
+      <div class="row content" style="margin: 3px;">
+        
+
+        <div class="col-sm-9" >
+            <div class="col-sm-9">
+                <table class="table table-borderless" >
+                    <tr>
+                        <td>Config Server IP Address</td>
+                        <td> <input type='text' class="form-control"></td>
+                    </tr>
+                </table>               
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Data Server Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-6">
+                            <table class="table table-borderless" >
+                                <tr>
+                                    <td>Platform</td>
+                                    <td>
+                                        <select class="form-control">
+                                            <option value='0'>Freeboard</option>
+                                            <option value='1'>Coutineo</option>
+                                            <option value='2'>Custom</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-borderless" >
+                                <tr>
+                                    <td>Thing Name</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td>Url</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td>IP Address</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Device Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-6">
+                            <table class="table table-borderless" >
+                                <tr>
+                                    <td>Device ID</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Device Category</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+
+                                
+                                <tr>
+                                    <td>Protocol</td>
+                                    <td>
+                                        <select class="form-control">
+                                            <option value='0'>Freeboard</option>
+                                            <option value='1'>Coutineo</option>
+                                            <option value='2'>Custom</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-borderless" >
+                                <tr>
+                                    <td>Device Name</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td>Installed Location</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td>Data Format</td>
+                                    <td> 
+                                        <select class="form-control">
+                                            <option value='0'>JSON</option>
+                                            <option value='1'>XML</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <label>Data Tx Rate: </label>
+                <select class="form-control">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Minute</option>
+                    <option value='1'>2 Minutes</option>
+                    <option value='2'>3 Minutes</option>
+                </select>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">WiFi- Settings</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-borderless" >
+                                <tr>
+                                    <td>Network Name</td>
+                                    <td> <input type='text' class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td>Network Password</td>
+                                    <td> <input type='password' class="form-control"></td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-3 sidenav">
+          <div >
+            <div class="well">
+              <p>Device List:</p>
+            </div>
+            <div class="well">
+                <ul>
+                    <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
+                </ul>
+            </div>
+            
+          </div>
+          <div>
+            <table>
+              <tr>
+                <td><button id="add" class="btn-success" ng-click="register()">Add New</button></td>
+                <td><button id="add" ng-click="remove()" class="btn-danger"> Remove</button></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><button id="add" ng-click="connect()" class="btn-primary"> Connect</button></td>
+                <td><button id="add" ng-click="send()" class="btn"> Send</button></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<footer class="container">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

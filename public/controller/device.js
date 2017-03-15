@@ -35,10 +35,11 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location){
         if(ipAddr=='')
             ipAddr='0.0.0.0';
         $http.get('/api/wiredAnalog/'+devId+'/'+ipAddr).success(function(result){
-            if(result=='success'){
-                $window.location.href='/wired/'+devId+'/'+ipAddr;
-            }else
+            if(result!='success')
                 alert(result);
+            $window.location.href='/wired/'+devId+'/'+ipAddr;
+            
+                
         })
     }
     

@@ -47,9 +47,9 @@ module.exports = function(app,eventEmitter) {
                 if(!rec[0].status)
                     res.json('offline');
                 else {
-                    eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId,res,1)
+                    // eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress+':'+rec[0].port,rec[0].deviceId,res)
                     // eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId)
-                    // res.json('success');
+                    res.json('success');
                 }
             }else
                 res.json('Device is in Offline');
@@ -57,7 +57,7 @@ module.exports = function(app,eventEmitter) {
     });
 
     app.put('/api/remove/:devId/:ipAddr',function(req,res){
-        Device.find({deviceId:req.params.devId,ipAddress:req.params.ipAddr}).lean().exec(function(err,rec){
+        Device.find({deviceId:req.params.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
                 Device.update({deviceId:req.params.devId}, {
                     $set: {
@@ -85,20 +85,22 @@ module.exports = function(app,eventEmitter) {
                 if(!rec[0].status)
                     res.json('offline');
                 else {
-                    eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId,res,9)
-                    eventEmitter.emit('UM_AIN1_CONFIG',rec[0].ipAddress,req.body.analog1);
-                    eventEmitter.emit('UM_AIN2_CONFIG',rec[0].ipAddress,req.body.analog2);
+                    var key = rec[0].ipAddress+':'+rec[0].port;
+                    console.log(req.body.data);
+                    eventEmitter.emit('COMMON_CONFIG_DATA',key,rec[0].deviceId,res,req.body.data)
+                    // eventEmitter.emit('UM_CONFIG',key,req.body.data);
+                    // eventEmitter.emit('UM_AIN2_CONFIG',key,req.body.analog2);
                     
-                    eventEmitter.emit('UM_DIN1_CONFIG',rec[0].ipAddress,req.body.digital1);
-                    eventEmitter.emit('UM_DIN2_CONFIG',rec[0].ipAddress,req.body.digital2);
+                    // eventEmitter.emit('UM_DIN1_CONFIG',key,req.body.digital1);
+                    // eventEmitter.emit('UM_DIN2_CONFIG',key,req.body.digital2);
 
-                    eventEmitter.emit('UM_AOUT1_CONFIG',rec[0].ipAddress,req.body.aout1);
-                    eventEmitter.emit('UM_AOUT2_CONFIG',rec[0].ipAddress,req.body.aout2);
+                    // eventEmitter.emit('UM_AOUT1_CONFIG',key,req.body.aout1);
+                    // eventEmitter.emit('UM_AOUT2_CONFIG',key,req.body.aout2);
 
-                    eventEmitter.emit('UM_DOUT1_CONFIG',rec[0].ipAddress,req.body.dout1);
-                    eventEmitter.emit('UM_DOUT2_CONFIG',rec[0].ipAddress,req.body.dout2);
+                    // eventEmitter.emit('UM_DOUT1_CONFIG',key,req.body.dout1);
+                    // eventEmitter.emit('UM_DOUT2_CONFIG',key,req.body.dout2);
 
-                    // eventEmitter.emit('COMMON_CONFIG_DATA',rec[0].ipAddress,rec[0].deviceId)
+                    // eventEmitter.emit('COMMON_CONFIG_DATA',key,rec[0].deviceId)
                     // res.json('success');
                 }
             }

@@ -3,47 +3,48 @@ var app = angular.module('deviceInfo',[]);
 
 app.controller('wiredCtrl', function($scope, $http,$window,$location){
     $scope.userName = 'Srinivas';
-    $scope.analog2 =  {"PACKET_ID":"UM_AIN2_CONFIG",
-                    "AIN2_STATUS":"DISABLE",}
-    $scope.analog1 =  {"PACKET_ID":"UM_AIN1_CONFIG",
-                    "AIN1_STATUS":"DISABLE",}
+    $scope.data = {"PACKET_ID":"UM_CONFIG_DATA"};
+    $scope.analog2 =  {
+                    "STATUS":"DISABLE","RATE":''}
+    $scope.analog1 =  {
+                    "STATUS":"DISABLE",'RATE':''}
 
-    $scope.digital1 =  {"PACKET_ID":"UM_DIN1_CONFIG",
-                        "DIN1_STATUS":"DISABLE",
-                        "DIN1_ONLABEL":"",
-                        "DIN1_OFFLABEL":"",
-                        "DIN1_RATE":0}
+    $scope.digital1 =  {
+                        "STATUS":"DISABLE",
+                        "ONLABEL":"",
+                        "OFFLABEL":"",
+                        "RATE":''}
 
-    $scope.digital2 =  {"PACKET_ID":"UM_DIN2_CONFIG",
-                        "DIN2_STATUS":"DISABLE",
-                        "DIN2_ONLABEL":"",
-                        "DIN2_OFFLABEL":"",
-                        "DIN2_RATE":0}
+    $scope.digital2 =  {
+                        "STATUS":"DISABLE",
+                        "ONLABEL":"",
+                        "OFFLABEL":"",
+                        "RATE":''}
 
-    $scope.aout1 =  {"PACKET_ID":"UM_AOUT1_CONFIG",
-                        "AOUT1_STATUS":"DISABLE",
-                        "AOUT1_NAME":"",
-                        "AOUT1_SCALEFACTOR":'',
-                        "AOUT1_OFFSET":'',
-                        "AOUT1_RATE":0}
+    $scope.aout1 =  {
+                        "STATUS":"DISABLE",
+                        "NAME":"",
+                        "SCALEFACTOR":'',
+                        "OFFSET":'',
+                        "RATE":''}
 
-    $scope.aout2 =    {"PACKET_ID":"UM_AOUT2_CONFIG",
-                        "AOUT2_STATUS":"DISABLE",
-                        "AOUT2_NAME":"",
-                        "AOUT2_SCALEFACTOR":'',
-                        "AOUT2_OFFSET":'',
-                        "AOUT2_RATE":0}
+    $scope.aout2 =    {
+                       "STATUS":"DISABLE",
+                        "NAME":"",
+                        "SCALEFACTOR":'',
+                        "OFFSET":'',
+                        "RATE":''}
 
-    $scope.dout1 =  {"PACKET_ID":"UM_DOUT1_CONFIG",
-                        "DOUT1_STATUS":"DISABLE",
-                        "DOUT1_ONLABEL":"",
-                        "DOUT1_OFFLABEL":"",
-                        "DOUT1_RATE":0}
-    $scope.dout2 =  {"PACKET_ID":"UM_DOUT2_CONFIG",
-                        "DOUT2_STATUS":"DISABLE",
-                        "DOUT2_ONLABEL":"",
-                        "DOUT2_OFFLABEL":"",
-                        "DOUT2_RATE":0}
+    $scope.dout1 =  {
+                        "STATUS":"DISABLE",
+                        "ONLABEL":"",
+                        "OFFLABEL":"",
+                        "RATE":'0'}
+    $scope.dout2 =  {
+                        "STATUS":"DISABLE",
+                        "ONLABEL":"",
+                        "OFFLABEL":"",
+                        "RATE":'0'}
     
     $scope.analog = {}
     var devInfo = {};    
@@ -75,40 +76,38 @@ app.controller('wiredCtrl', function($scope, $http,$window,$location){
 
     var changeStatus = function(){
 
-            $scope.analog1.AIN1_STATUS ? $scope.analog1.AIN1_STATUS='ENABLE':$scope.analog1.AIN1_STATUS='DISABLE';
-            $scope.analog2.AIN2_STATUS ? $scope.analog2.AIN2_STATUS='ENABLE':$scope.analog2.AIN2_STATUS='DISABLE';
+            $scope.analog1.STATUS==true ? $scope.analog1.STATUS='ENABLE':$scope.analog1.STATUS='DISABLE';
+            $scope.analog2.STATUS==true ? $scope.analog2.STATUS='ENABLE':$scope.analog2.STATUS='DISABLE';
+            $scope.data['AIN1'] = $scope.analog1;
+            $scope.data['AIN2'] = $scope.analog2;
 
-            $scope.digital1.DIN1_STATUS ? $scope.digital1.DIN1_STATUS='ENABLE':$scope.digital1.DIN1_STATUS='DISABLE';
-            $scope.digital2.DIN2_STATUS ? $scope.digital2.DIN2_STATUS='ENABLE':$scope.digital2.DIN2_STATUS='DISABLE';
+            $scope.digital1.STATUS==true ? $scope.digital1.STATUS='ENABLE':$scope.digital1.STATUS='DISABLE';
+            $scope.digital2.STATUS==true ? $scope.digital2.STATUS='ENABLE':$scope.digital2.STATUS='DISABLE';
+            $scope.data['DIN1'] = $scope.digital1;
+            $scope.data['DIN2'] = $scope.digital2;
 
-            $scope.aout1.AOUT1_STATUS ? $scope.aout1.AOUT1_STATUS='ENABLE':$scope.aout1.AOUT1_STATUS='DISABLE';
-            $scope.aout2.AOUT2_STATUS ? $scope.aout2.AOUT2_STATUS='ENABLE':$scope.aout2.AOUT2_STATUS='DISABLE';
 
-            $scope.dout1.DOUT1_STATUS ? $scope.dout1.DOUT1_STATUS='ENABLE':$scope.dout1.AOUT1_STATUS='DISABLE';
-            $scope.dout2.DOUT2_STATUS ? $scope.dout2.DOUT2_STATUS='ENABLE':$scope.dout2.AOUT2_STATUS='DISABLE';
+            $scope.aout1.STATUS==true ? $scope.aout1.STATUS='ENABLE':$scope.aout1.STATUS='DISABLE';
+            $scope.aout2.STATUS==true ? $scope.aout2.STATUS='ENABLE':$scope.aout2.STATUS='DISABLE';
+            $scope.data['AOUT1'] = $scope.aout1;
+            $scope.data['AOUT2'] = $scope.aout2;
+
+            $scope.dout1.STATUS==true ? $scope.dout1.STATUS='ENABLE':$scope.dout1.STATUS='DISABLE';
+            $scope.dout2.STATUS==true ? $scope.dout2.STATUS='ENABLE':$scope.dout2.STATUS='DISABLE';
+            $scope.data['DOUT1'] = $scope.dout1;
+            $scope.data['DOUT2'] = $scope.dout2;
 
     }
 
     $scope.connect = function(){
         // alert($scope.devId)
         changeStatus();
-
-        $scope.analog["analog1"] = $scope.analog1;
-        $scope.analog["analog2"]= $scope.analog2;
-
-        $scope.analog["aout1"] = $scope.aout1;
-        $scope.analog["aout2"]= $scope.aout2;
-
-        $scope.analog["digital1"] = $scope.digital1;
-        $scope.analog["digital2"]= $scope.digital2;
-
-        $scope.analog["dout1"] = $scope.dout1;
-        $scope.analog["dout2"]= $scope.dout2;
         
         devInfo["devId"] = $scope.devId;
         devInfo ["ipAddr"] = $scope.ipAddr;
 
         $scope.analog["devInfo"] = devInfo;
+        $scope.analog["data"] = $scope.data;
 
         $http.post('/api/wiredpoints',$scope.analog).success(function(result){
             
