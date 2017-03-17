@@ -17,4 +17,10 @@ router.get('/wired/:devId/:ipAddr',function(req,res){
 router.get('/devparams/:devId',function(req,res){
     res.render('devparams',{'devId':req.params.devId});
 })
+
+router.get('/reg',function(req,res){
+    res.render('userregister');
+})
+
+
 module.exports = router;
