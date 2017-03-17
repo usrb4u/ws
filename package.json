@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Web application for tcp ip devices ",
   "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "test": "export NODE_ENV='development' & ./node_modules/.bin/mocha --reporter spec"
   },
-  "author": "",
+  "author": "Raju et al.",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.16.1",
@@ -15,7 +17,12 @@
     "express": "^4.14.1",
     "mongoose": "^4.8.5",
     "net": "^1.0.2",
-    "ws": "^2.1.0",
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+    "ws": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0"
   }
 }

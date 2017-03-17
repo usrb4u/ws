@@ -38,6 +38,7 @@ module.exports = function(app,eventEmitter) {
         initial_packet.DS_IPADDR=ipAddr.split(':')[0];
         initial_packet.TS_IPADDR = ipAddr.split(':')[0];
         if(clients[ipAddr]!=undefined){
+            // console.log(initial_packet);
             clients[ipAddr].write(JSON.stringify(initial_packet));
             // clients[ipAddr].mcount=tVal;
             // clients[ipAddr].count=0;
@@ -64,19 +65,9 @@ module.exports = function(app,eventEmitter) {
         
     });
 
-    eventEmitter.on('CL_RESP',function(ipAddr){
-        clients[ipAddr].count = clients[ipAddr].count +1;
-        if(clients[ipAddr].count==clients[ipAddr].mcount){
-            clients[ipAddr].mcount=0;
-            clients[ipAddr].count=0;
-            if(clients[ipAddr].resp_success)
-                clients[ipAddr].resp.json('success');
-            else
-                clients[ipAddr].resp.json('failed');
-                clients[ipAddr].resp_success = true;
-            
-        }
-            
+    eventEmitter.on('UPDATE_COMMON_DATA',function(data){
+        initial_packet = data;
+        
     })
 
     eventEmitter.on('REGDATA_RESPONSE',function(ipAddr){
@@ -149,37 +140,7 @@ module.exports = function(app,eventEmitter) {
         
     });
 
-    eventEmitter.on('UM_AIN1_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
     
-    eventEmitter.on('UM_AIN2_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-
-    eventEmitter.on('UM_DIN1_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-    
-    eventEmitter.on('UM_DIN2_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-
-    eventEmitter.on('UM_AOUT1_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-    
-    eventEmitter.on('UM_AOUT2_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-
-    eventEmitter.on('UM_DOUT1_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
-    
-    eventEmitter.on('UM_DOUT2_CONFIG',function(ipAddr,data){
-        clients[ipAddr].write(JSON.stringify(data));
-    });
 
     eventEmitter.on('UM_CONFIG_DATA',function(ipAddr,data){
         clients[ipAddr].write(JSON.stringify(data));

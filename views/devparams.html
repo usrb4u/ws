@@ -14,8 +14,8 @@
   
 </head>
 <body ng-app="deviceInfo" >
-  <div ng-controller="wiredCtrl">
-    <div class="container" >
+  <div ng-controller="deviceCtrl">
+    <div class="container" ng-init="getDevInfo('<%- devId %>')">
       <nav class="navbar navbar-inverse">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Logo</a>
@@ -40,7 +40,7 @@
         <div class="container " id="myNavbar">
           <ul class="nav navbar-nav">
             <li ><div class="well"><a href="#"><h4>Common Configurations</h4></a></div></li>
-            <li class="active"><div class="well">Wired End Points</div></li>
+            <li ><div class="well"><a href="/wired/<%- devId %>/0.0.0.0">Wired End Points</a></div></li>
             <li><div class="well"><a href="#">Wireless End Points</a></div></li>
             <li><div class="well"><a href="#">FW Update</a></div></li>
           </ul>
@@ -53,11 +53,12 @@
         
 
         <div class="col-sm-9" >
+            <form>
             <div class="col-sm-9">
                 <table class="table table-borderless" >
                     <tr>
                         <td>Config Server IP Address</td>
-                        <td> <input type='text' class="form-control"></td>
+                        <td> <input type='text' class="form-control" ng-model="common_config.TS_IPADDR" readonly></td>
                     </tr>
                 </table>               
             </div>
@@ -73,10 +74,10 @@
                                 <tr>
                                     <td>Platform</td>
                                     <td>
-                                        <select class="form-control">
-                                            <option value='0'>Freeboard</option>
-                                            <option value='1'>Coutineo</option>
-                                            <option value='2'>Custom</option>
+                                        <select class="form-control" ng-model="common_config.PLATFORM_SUPPORTED">
+                                            <option value=0>Freeboard</option>
+                                            <option value=1>Coutineo</option>
+                                            <option value=2>Custom</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -86,15 +87,15 @@
                             <table class="table table-borderless" >
                                 <tr>
                                     <td>Thing Name</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.FREEBOARD_THING_NAME"></td>
                                 </tr>
                                 <tr>
                                     <td>Url</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.DS_URL"></td>
                                 </tr>
                                 <tr>
                                     <td>IP Address</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.DS_IPADDR"></td>
                                 </tr>
                             </table>
                         </div>
@@ -115,22 +116,23 @@
                             <table class="table table-borderless" >
                                 <tr>
                                     <td>Device ID</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.DEVICEID"></td>
                                 </tr>
 
                                 <tr>
                                     <td>Device Category</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.DEVICE_CATEGORY"></td>
                                 </tr>
 
                                 
                                 <tr>
                                     <td>Protocol</td>
                                     <td>
-                                        <select class="form-control">
-                                            <option value='0'>Freeboard</option>
-                                            <option value='1'>Coutineo</option>
-                                            <option value='2'>Custom</option>
+                                        <select class="form-control" ng-model="common_config.PROTOCOL_SELECTED">
+                                            <option value='0' selected>TCP</option>
+                                            <option value='1'>HTTP</option>
+                                            <option value='2'>MQTT</option>
+                                            <option value='3'>COAP</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -140,16 +142,16 @@
                             <table class="table table-borderless" >
                                 <tr>
                                     <td>Device Name</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.DEVICE_ALIAS_NAME"></td>
                                 </tr>
                                 <tr>
                                     <td>Installed Location</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.INSTALLED_LOCATION"></td>
                                 </tr>
                                 <tr>
                                     <td>Data Format</td>
                                     <td> 
-                                        <select class="form-control">
+                                        <select class="form-control" ng-model="common_config.DATA_FORMAT">
                                             <option value='0'>JSON</option>
                                             <option value='1'>XML</option>
                                         </select>
@@ -165,7 +167,7 @@
 
             <div class="col-sm-4">
                 <label>Data Tx Rate: </label>
-                <select class="form-control">
+                <select class="form-control" ng-model="common_config.DATA_XMIT_FREQ">
                     <option value=''>Select</option>
                     <option value='0'>1 Minute</option>
                     <option value='1'>2 Minutes</option>
@@ -182,17 +184,17 @@
                         <table class="table table-borderless" >
                                 <tr>
                                     <td>Network Name</td>
-                                    <td> <input type='text' class="form-control"></td>
+                                    <td> <input type='text' class="form-control" ng-model="common_config.WIFI_NAME"></td>
                                 </tr>
                                 <tr>
                                     <td>Network Password</td>
-                                    <td> <input type='password' class="form-control"></td>
+                                    <td> <input type='password' class="form-control" ng-model="common_config.WIFI_PASSWORD"></td>
                                 </tr>
                         </table>
                     </div>
                 </div>
             </div>
-
+            </form>
         </div>
 
         <div class="col-sm-3 sidenav">
