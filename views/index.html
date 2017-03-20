@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./script/style.css">
   <script src="./js/angular.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/controller/common.js"></script>
   <script src="controller/device.js" ></script>
 </head>
 <body ng-app="deviceInfo" >
@@ -52,9 +53,15 @@
         <div class="well">
         <p>Device List:</p>
         </div>
-        <div class="well">
+        <div min-height="100px;" class="well" >
             <ul>
-                <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
+                <li ng-repeat="dev in devList">
+                    <i class="glyphicon glyphicon-stop offline " ng-if="!dev.status"></i>
+                    <i class="glyphicon glyphicon-stop online" ng-if="dev.status"></i>
+                    <a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)"> 
+                        <span ng-bind="devName = dev.aliasName==null? dev.deviceId : dev.aliasName"></span>
+                    </a>
+                </li>
             </ul>
         </div>
         <button id="add" ng-click="register()"> Add New Device</button>

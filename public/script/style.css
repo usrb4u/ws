@@ -52,6 +52,16 @@
       .row.content {height:auto;} 
     }
 
+    li {
+        display: block;
+    }
 
+    
+    .online {
+      color:green;
+    }
+    .offline {
+      color:#A6ACAF
+    }
 
     

@@ -10,6 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/angular.min.js"></script>
+  <script src="/controller/common.js"></script>
   <script src="/controller/wired.js"></script>
   
 </head>
@@ -39,7 +40,7 @@
         </div>-->
         <div class="container " id="myNavbar">
           <ul class="nav navbar-nav">
-            <li ><div class="well"><a href="/devparams/<%- devId%>">Device Parameters</a></div></li>
+            <li ><div class="well"><a href="/devparams/<%- devId%>">Common Configurations</a></div></li>
             <li class="active"><div class="well"><h4>Wired End Points</h4></div></li>
             <li><div class="well"><a href="#">Wireless End Points</a></div></li>
             <li><div class="well"><a href="#">FW Update</a></div></li>
@@ -133,6 +134,162 @@
                     <option value='15'>24 Hours</option>
                   </select></td>
               </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog3.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog3.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog3.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog3.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog3.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog4.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog4.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog4.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog4.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog4.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog5.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog5.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog5.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog5.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog5.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog6.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog6.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog6.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog6.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog6.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog7.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog7.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog7.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog7.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog7.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="checkbox" class="form-control" ng-model="analog8.STATUS"></td>
+                <td><input type="text" class="form-control" ng-model="analog8.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="analog8.SCALEFACTOR"></td>
+                <td><input type="text" class="form-control" ng-model="analog8.OFFSET"></td>
+                <td><select class="form-control" ng-model="analog8.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
             </table>
           </form>
         </div>
@@ -183,6 +340,162 @@
                 <td><input type="text" class="form-control" ng-model="digital2.NAME"></td>
                 <td><input type="text" class="form-control" ng-model="digital2.ONLABEL"></td>
                 <td><input type="text" class="form-control" ng-model="digital2.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital2.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital3.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital3.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital3.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital3.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital3.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital4.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital4.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital4.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital4.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital4.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital5.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital5.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital5.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital5.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital5.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital6.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital6.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital6.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital6.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital6.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital7.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital7.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital7.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital7.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="digital7.RATE">
+                    <option value=''>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="digital8.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="digital8.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="digital8.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="digital8.OFFLABEL"></td>
                 <td><select class="form-control" ng-model="digital2.RATE">
                     <option value=''>Select</option>
                     <option value='0'>1 Min</option>
@@ -338,6 +651,162 @@
                     <option value='15'>24 Hours</option>
                   </select></td>
               </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout3.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout3.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout3.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout3.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout3.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout4.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout4.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout4.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout4.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout4.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout5.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout5.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout5.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout5.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout5.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout6.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout6.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout6.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout6.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout6.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout7.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout7.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout7.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout7.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout7.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="form-control" ng-model="dout8.STATUS"></td>
+                <td></td>
+                <td><input type="text" class="form-control" ng-model="dout8.NAME"></td>
+                <td><input type="text" class="form-control" ng-model="dout8.ONLABEL"></td>
+                <td><input type="text" class="form-control" ng-model="dout8.OFFLABEL"></td>
+                <td><select class="form-control" ng-model="dout8.RATE">
+                    <option selected>Select</option>
+                    <option value='0'>1 Min</option>
+                    <option value='1'>2 Min</option>
+                    <option value='2'>3 Min</option>
+                    <option value='3'>4 Min</option>
+                    <option value='4'>5 Min</option>
+                    <option value='5'>10 Min</option>
+                    <option value='6'>15 Min</option>
+                    <option value='7'>20 Min</option>
+                    <option value='8'>25 Min</option>
+                    <option value='9'>30 Min</option>
+                    <option value='10'>1 Hour</option>
+                    <option value='11'>5 Hours</option>
+                    <option value='12'>10 Hours</option>
+                    <option value='13'>15 Hours</option>
+                    <option value='14'>20 Hours</option>
+                    <option value='15'>24 Hours</option>
+                  </select></td>
+              </tr>
             </table>
           </form>
         </div>
@@ -352,7 +821,14 @@
             </div>
             <div class="well">
                 <ul>
-                    <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
+                    <li ng-repeat="dev in devList">
+                      <i class="glyphicon glyphicon-stop offline " ng-if="!dev.status"></i>
+                      <i class="glyphicon glyphicon-stop online" ng-if="dev.status"></i>
+                      <a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)"> 
+                          <span ng-bind="devName = dev.aliasName==null? dev.deviceId : dev.aliasName"></span>
+                      </a>
+                      <i class="glyphicon glyphicon-hand-left" ng-if="dev.deviceId==devId"></i>
+                  </li>
                 </ul>
             </div>
             

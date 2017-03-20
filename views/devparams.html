@@ -10,6 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/angular.min.js"></script>
+  <script src="/controller/common.js"></script>
   <script src="/controller/device.js"></script>
   
 </head>
@@ -40,7 +41,7 @@
         <div class="container " id="myNavbar">
           <ul class="nav navbar-nav">
             <li ><div class="well"><a href="#"><h4>Common Configurations</h4></a></div></li>
-            <li ><div class="well"><a href="/wired/<%- devId %>/0.0.0.0">Wired End Points</a></div></li>
+            <li ><div class="well"><a href="#" ng-click="wiredEndpoint('<%- devId%>')">Wired End Points</a></div></li>
             <li><div class="well"><a href="#">Wireless End Points</a></div></li>
             <li><div class="well"><a href="#">FW Update</a></div></li>
           </ul>
@@ -204,7 +205,14 @@
             </div>
             <div class="well">
                 <ul>
-                    <li ng-repeat="dev in devList"><a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)">{{dev.deviceId}}</a></li>
+                    <li ng-repeat="dev in devList">
+                        <i class="glyphicon glyphicon-stop offline " ng-if="!dev.status"></i>
+                        <i class="glyphicon glyphicon-stop online" ng-if="dev.status"></i>
+                        <a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)"> 
+                            <span ng-bind="devName = dev.aliasName==null? dev.deviceId : dev.aliasName"></span>
+                        </a>
+                        <i class="glyphicon glyphicon-hand-left" ng-if="dev.deviceId==common_config.DEVICEID"></i>
+                    </li>
                 </ul>
             </div>
             

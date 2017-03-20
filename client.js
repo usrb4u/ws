@@ -59,7 +59,7 @@ ws.on('data', function incoming(data, flags) {
         case 'DEV_ID_REQUEST':
             emtr.emit('DEV_ID_REQUEST');
             break;
-        case 'UM_CONFIG_DATA':
+        case 'UM_CONFIG':
             ws.write(JSON.stringify({"PACKET_ID":"UM_CONFIG_SUCCESS"}))
             break;
         case 'UM_AIN2_CONFIG' :

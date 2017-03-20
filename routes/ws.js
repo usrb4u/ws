@@ -20,28 +20,37 @@ module.exports = function(app,eventEmitter) {
     var initial_packet = {
         "PACKET_ID":"COMMON_CONFIG_DATA",
         "GPS_EN_STATUS":"DISABLE",
-        "DEVICEID":"XYZUVWCD123",
-        "CUSTOMER_ID":"CUST9926",
-        "DS_IPADDR":"192.168.1.12",
+        "DEVICEID":"",
+        "CUSTOMER_ID":"",
+        "DS_IPADDR":"",
         "DS_PORTNUMBER":1025,
-        "TS_IPADDR":'',
+        "TS_IPADDR":"",
         "TS_PORTNUMBER":21,
-        "PROTOCOL_SELECTED":0,
-        "DATA_FORMAT":0,
-        "DATA_XMIT_FREQ":0
+        "PROTOCOL_SELECTED":'0',
+        "DATA_FORMAT": '0',
+        "DATA_XMIT_FREQ": '0', 
+        "DEVICE_ALIAS_NAME":"ALIAS_NAME", 
+        "DEVICE_CATEGORY":"WIRED_WITH_ETHERNET", 
+        "INSTALLED_LOCATION":"MARATHALLI", 
+        "PLATFORM_SUPPORTED":'0', 
+        "WIFI_NAME":"NAME", 
+        "WIFI_PASSWORD":"PASSOWORD",  
+        "DS_URL":"dweet.io", 
+        "FREEBOARD_THING_NAME":"tangent"
     }
 
 
     eventEmitter.on('COMMON_CONFIG_DATA',function(ipAddr,devId,resp,um_data){
         console.log('Processing common config data');
         initial_packet.DEVICEID = devId;
-        initial_packet.DS_IPADDR=ipAddr.split(':')[0];
-        initial_packet.TS_IPADDR = ipAddr.split(':')[0];
+        // initial_packet.DS_IPADDR=ipAddr.split(':')[0];
+        // initial_packet.TS_IPADDR = ipAddr.split(':')[0];
         if(clients[ipAddr]!=undefined){
-            // console.log(initial_packet);
+            console.log(clients[ipAddr].common_config);
+            if(clients[ipAddr].common_config!='')
+                initial_packet = clients[ipAddr].common_config;
             clients[ipAddr].write(JSON.stringify(initial_packet));
-            // clients[ipAddr].mcount=tVal;
-            // clients[ipAddr].count=0;
+            
             if(um_data!=undefined)
                 clients[ipAddr].um_data = um_data
             if(resp!==undefined)
@@ -50,14 +59,14 @@ module.exports = function(app,eventEmitter) {
             eventEmitter.emit('changeStatus',ipAddr,false);
             resp.json('offline');
         }        
-        // status = false;
+        
     })
  
     eventEmitter.on('COMMON_CONFIG_SUCCESS',function(ipAddr){
-        // clients[ws.key].write(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}));
-        // clients[ws.resp].json('success');
+        
         if(clients[ipAddr].um_data!==''){
-            eventEmitter.emit('UM_CONFIG_DATA',ipAddr,clients[ipAddr].um_data);
+            console.log(' Processing UM_CONFIG_DATA information...');
+            eventEmitter.emit('UM_CONFIG',ipAddr,clients[ipAddr].um_data);
             clients[ipAddr].um_data='';
         }
         else
@@ -65,9 +74,10 @@ module.exports = function(app,eventEmitter) {
         
     });
 
-    eventEmitter.on('UPDATE_COMMON_DATA',function(data){
-        initial_packet = data;
-        
+    eventEmitter.on('UPDATE_COMMON_DATA',function(ipAddr,data){
+        // initial_packet = data;
+        if(clients[ipAddr]!=undefined)
+        clients[ipAddr].common_config = data;
     })
 
     eventEmitter.on('REGDATA_RESPONSE',function(ipAddr){
@@ -142,7 +152,7 @@ module.exports = function(app,eventEmitter) {
 
     
 
-    eventEmitter.on('UM_CONFIG_DATA',function(ipAddr,data){
+    eventEmitter.on('UM_CONFIG',function(ipAddr,data){
         clients[ipAddr].write(JSON.stringify(data));
     })
 
@@ -178,11 +188,9 @@ module.exports = function(app,eventEmitter) {
         // client.push(ws);
         ws.key = ws.remoteAddress +':'+ws.remotePort;
         ws.resp='';
-        // ws.count=0;
-        // ws.mcount=0;
+        
         ws.um_data='';
-        // ws.resp_success = true;
-        // ws.flag=true;
+        ws.common_config='';
         clients[ws.key] = ws;
         
         clients[ws.key].write(JSON.stringify({"PACKET_ID":"DEV_ID_REQUEST"}))
@@ -204,10 +212,7 @@ module.exports = function(app,eventEmitter) {
                     // console.log(resp);
                     eventEmitter.emit('REGDATA_RESPONSE',ws.key);
                     break;
-                case 'UM_AIN1_CONFIG':
-                    // console.log(resp);
-                    eventEmitter.emit('UM_AIN1_CONFIG');
-                    break;
+                
                 case 'UM_CONFIG_SUCCESS' :
                     // console.log(resp);
                     eventEmitter.emit('UM_CONFIG_SUCCESS',ws.key);

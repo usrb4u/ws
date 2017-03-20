@@ -50,14 +50,16 @@ module.exports = function(app,eventEmitter) {
                         // console.log(docs);
                     }
                 })
-            }else if(rec.userName!='')
+            }else if(rec.userName!='' && rec.length==1)
                 res.json('exists');
+            else if(rec.length==0)
+                res.json('failed');
         })
 
     })
 
     app.get('/api/wiredAnalog/:devId/:devIp',function(req,res){        
-        Device.find({deviceId:req.params.devId,ipAddress:req.params.devIp}).lean().exec(function(err,rec){
+        Device.find({deviceId:req.params.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
                 // console.log(rec);
                 if(!rec[0].status)
@@ -104,7 +106,7 @@ module.exports = function(app,eventEmitter) {
                 else {
                     var key = rec[0].ipAddress+':'+rec[0].port;
                     // console.log(req.body.data);
-                    eventEmitter.emit('UPDATE_COMMON_DATA',req.body);
+                    eventEmitter.emit('UPDATE_COMMON_DATA',key,req.body);
                     eventEmitter.emit('COMMON_CONFIG_DATA',key,rec[0].deviceId,res)
                     
                 }
@@ -113,9 +115,25 @@ module.exports = function(app,eventEmitter) {
 
     })
 
+    app.post('/api/set_common_config',function(req,res){
+        Device.find({deviceId:req.body.DEVICEID}).lean().exec(function(err,rec){
+            if(rec.length==1){
+                var key='';
+                if(!rec[0].status)
+                    key = '0.0.0.0:0';
+                 else
+                    key = rec[0].ipAddress+':'+rec[0].port;
+                eventEmitter.emit('UPDATE_COMMON_DATA',key,req.body);
+                res.json('success');
+            }
+            else
+                res.json('fail');
+        });
+    })
+
     app.post('/api/wiredpoints',function(req,res){
-        
-        Device.find({deviceId:req.body.devInfo.devId,ipAddress:req.body.devInfo.ipAddr}).lean().exec(function(err,rec){
+        // console.log(req)
+        Device.find({deviceId:req.body.devInfo.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
                 // console.log(rec);
                 if(!rec[0].status)
