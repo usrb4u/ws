@@ -8,11 +8,14 @@ var config = require('./config/config.js');
 
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var flash    = require('connect-flash');
 
 var cookieParser = require('cookie-parser');
 const app = express();
+var session      = require('express-session');
 var events = require('events');
 var evt = new events.EventEmitter();
+var passport = require('passport');
 
 
 var routes = require('./routes/index');
@@ -34,6 +37,13 @@ app.use('/',routes);
 
 require('./routes/ws.js')(app,evt);
 require('./routes/api.js')(app,evt);
+
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./routes/routes.js')(app, passport); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

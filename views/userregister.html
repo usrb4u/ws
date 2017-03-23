@@ -10,61 +10,66 @@
 
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/controller/common.js"></script>
+    <script src="/controller/login.js"></script>
 </head>
-<body>
+<body ng-app="deviceInfo">
 
-<div class="container">
+<div class="container" ng-controller="loginCtrl">
 
     
-    
-    <div class="page-header">
-        <h1>User Login </h1>
+    <div ng-if="location=='login'" class="col-md-5 col-md-push-4">
+        <div class="page-header">
+            <h1>User Login </h1>
+        </div>
+
+        <!-- Simple Login - START -->
+        <form name='logForm'>
+            <div class="form-group">
+                <input type="email" class="form-control input-lg" placeholder="Email" ng-model="login.email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control input-lg" placeholder="Password" required ng-model="login.password">
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-primary btn-lg btn-block" ng-disabled="logForm.$invalid" ng-click="loginForm()">Sign In</button>
+                <span><a href="#">Need help?</a></span>
+                <span class="pull-right"><a href="#" ng-click="changeLocation('registration')">New Registration</a></span>
+            </div>
+        </form>
     </div>
+    <!-- Simple Login - END -->
 
-    <!-- Simple Login - START -->
-    <form class="col-md-5">
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="Email">
+    <div ng-if="location=='registration'" class="col-md-5 col-md-push-4">
+        <div class="page-header">
+            <h1>User Registration </h1>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control input-lg" placeholder="Password">
-        </div>
-        
-        <div class="form-group">
-            <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-            <span><a href="#">Need help?</a></span>
-            <span class="pull-right"><a href="#">New Registration</a></span>
-        </div>
-    </form>
-<!-- Simple Login - END -->
 
-
-    <div class="page-header">
-        <h1>User Registration </h1>
+        <!-- Simple Login - START -->
+        <form name='regForm'> 
+            
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="User Name" ng-model="reg.name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control input-lg" placeholder="Email" ng-model="reg.email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control input-lg" placeholder="Password" ng-model="reg.password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control input-lg" placeholder="Confirm Password" ng-model="reg.confirm" required>
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-primary btn-lg btn-block" ng-disabled="regForm.$invalid" ng-click="register()">Register</button>
+                <span><a href="#">Need help?</a></span>
+                <span class="pull-right"><a href="#" ng-click="changeLocation('login')">Login</a></span>
+            </div>
+        </form>
     </div>
-
-    <!-- Simple Login - START -->
-    <form class="col-md-5">
-        
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="User Name">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="Email">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control input-lg" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control input-lg" placeholder="Confirm Password">
-        </div>
-        
-        <div class="form-group">
-            <button class="btn btn-primary btn-lg btn-block">Register</button>
-            <span><a href="#">Need help?</a></span>
-            <span class="pull-right"><a href="#">Login</a></span>
-        </div>
-    </form>
 
 </div>
 
