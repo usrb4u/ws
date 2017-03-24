@@ -1,15 +1,23 @@
 // load all the things we need
 
 var LocalStrategy   = require('passport-local').Strategy;
+var JwtStrategy = require('passport-jwt').Strategy;  
+var ExtractJwt = require('passport-jwt').ExtractJwt; 
 
 // process.chdir('../')
 
 var User = require(process.cwd()+'/model/user');
 
+var config = require('./config.js');  
+
 // load the auth variables
 // var configAuth = require('./auth'); // use this one for testing
 
 module.exports = function(passport) {
+
+    var opts = {};
+    opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
+    opts.secretOrKey = config.secret;
 
     // =========================================================================
     // passport session setup ==================================================
@@ -29,6 +37,20 @@ module.exports = function(passport) {
         });
     });
 
+
+    
+    passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+        User.findOne({id: jwt_payload.id}, function(err, user) {
+        if (err) {
+            return done(err, false);
+        }
+        if (user) {
+            done(null, user);
+        } else {
+            done(null, false);
+        }
+        });
+    }));
 
     passport.use('local-signup', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
@@ -57,7 +79,7 @@ module.exports = function(passport) {
                     // set the user's local credentials
                     newUser.email    = email;
                     newUser.password = newUser.generateHash(password); // use the generateHash function in our user model
-                    newUser.name = req.body.nameMain;
+                    newUser.name = req.body.name;
                     newUser.role=0;
                     newUser.profileImage='/fonts/male.png';
                     // save the user

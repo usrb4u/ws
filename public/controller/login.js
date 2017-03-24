@@ -19,8 +19,8 @@ $scope.regUser = function(){
     console.log($scope.reg);
     var formData = {
         name:$scope.reg.name,
-        email: $scope.email,
-        password:$scope.password
+        email: $scope.reg.email,
+        password:$scope.reg.password
     }
     if($scope.reg.password==$scope.reg.confirm){
         $http.post('/signup',formData).success(function(data){
