@@ -18,7 +18,7 @@ router.get('/devparams/:devId',function(req,res){
     res.render('devparams',{'devId':req.params.devId});
 })
 
-router.get('/reg',function(req,res){
-    res.render('userregister');
+router.get('/login',function(req,res){
+    res.render('login');
 })
 module.exports = router;

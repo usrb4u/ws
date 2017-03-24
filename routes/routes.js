@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
     // =====================================
     // show the signup form
     app.get('/signup', function(req, res) {
-
+        console.log('signup called from get.');
         res.end();
     });
 
@@ -34,46 +34,6 @@ module.exports = function(app, passport) {
         failureRedirect : '/failure', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
-
-    // facebook -------------------------------
-
-        // send to facebook to do the authentication
-        app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-        // handle the callback after facebook has authenticated the user
-        app.get('/auth/facebook/callback',
-            passport.authenticate('facebook', {
-                successRedirect : '/search',
-                failureRedirect : '/'
-            }));
-
-    // twitter --------------------------------
-
-        // send to twitter to do the authentication
-        app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
-
-        // handle the callback after twitter has authenticated the user
-        app.get('/auth/twitter/callback',
-            passport.authenticate('twitter', {
-                successRedirect : '/search',
-                failureRedirect : '/'
-            }));
-
-
-    // google ---------------------------------
-
-        // send to google to do the authentication
-        app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-        // the callback after google has authenticated the user
-        app.get('/oauth2callback',
-            passport.authenticate('google', {
-                successRedirect : '/search',
-                failureRedirect : '/'
-            }));
 
     //Common Method -----------------------------------------
 
@@ -85,7 +45,8 @@ module.exports = function(app, passport) {
 
     app.get('/success', function(req, res) {
             console.log('success request: '+req.user);
-            res.redirect('/user/mail/'+req.user._id);
+            res.send(req.user);
+            // res.redirect('/user/mail/'+req.user._id);
             //res.send({token : token, role:req.user.role, id:req.user._id});
         }
     );

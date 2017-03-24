@@ -1,7 +1,4 @@
 // load all the things we need
-// var FacebookStrategy = require('passport-facebook').Strategy;
-// var TwitterStrategy  = require('passport-twitter').Strategy;
-var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
 var LocalStrategy   = require('passport-local').Strategy;
 
@@ -10,7 +7,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 var User = require(process.cwd()+'/model/user');
 
 // load the auth variables
-var configAuth = require('./auth'); // use this one for testing
+// var configAuth = require('./auth'); // use this one for testing
 
 module.exports = function(passport) {
 
@@ -37,14 +34,14 @@ module.exports = function(passport) {
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'email',
             passwordField : 'password',
-            nameMainField : 'nameMain',
+            nameField : 'name',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) {
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            User.findOne({ 'local.email' :  email }).lean().exec( function(err, user) {
+            User.findOne({ 'email' :  email }).lean().exec( function(err, user) {
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
@@ -58,9 +55,9 @@ module.exports = function(passport) {
                     var newUser            = new User();
 
                     // set the user's local credentials
-                    newUser.local.email    = email;
-                    newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
-                    newUser.local.nameMain = req.body.nameMain;
+                    newUser.email    = email;
+                    newUser.password = newUser.generateHash(password); // use the generateHash function in our user model
+                    newUser.name = req.body.nameMain;
                     newUser.role=0;
                     newUser.profileImage='/fonts/male.png';
                     // save the user
@@ -89,7 +86,7 @@ module.exports = function(passport) {
 
             // find a user whose email is the same as the forms email
 
-            User.findOne({ 'local.email' :  email }, function(err, user) {
+            User.findOne({ 'email' :  email }, function(err, user) {
                 if (err)
                     return done(err);
 

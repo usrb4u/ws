@@ -15,8 +15,19 @@ $scope.loginForm = function(){
     alert('login');
 }
 
-$scope.register = function(){
-    alert('register');
+$scope.regUser = function(){
+    console.log($scope.reg);
+    var formData = {
+        name:$scope.reg.name,
+        email: $scope.email,
+        password:$scope.password
+    }
+    if($scope.reg.password==$scope.reg.confirm){
+        $http.post('/signup',formData).success(function(data){
+            alert(data);
+        })
+    }else
+    alert('Password not matching');
 }
 
 })

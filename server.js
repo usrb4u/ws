@@ -38,7 +38,11 @@ app.use('/',routes);
 require('./routes/ws.js')(app,evt);
 require('./routes/api.js')(app,evt);
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+require('./config/passport')(passport);
+
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch',
+          resave: true,
+    saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
