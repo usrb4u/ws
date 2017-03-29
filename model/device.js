@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 
 var deviceSchema = mongoose.Schema({
@@ -7,7 +6,7 @@ var deviceSchema = mongoose.Schema({
 	port:String,
 	status: Boolean,
 	aliasName:String,
-    userName:String,
+	email:String,
 	regDate:Date
 });
 

@@ -5,6 +5,7 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
     $scope.userName = 'Srinivas';
     $scope.regDev = {};
     var devInfo={};
+    $scope.localData={};
     $scope.common_config={"PACKET_ID":"COMMON_CONFIG_DATA",
                         "GPS_EN_STATUS":"DISABLE",
                         "DEVICEID":devInfo.deviceId,
@@ -30,21 +31,36 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
     }
 
     $scope.getDevices = function(){
-        $http.get('/api/getDevices/'+$scope.userName).success(function(result){
+        if(commonService.localData!=null) 
+            $http.defaults.headers.common['Authorization'] = commonService.localData.token;
+        else {
+            commonService.signout();
+        }
+        $http.get('/api/getDevices/'+commonService.user.email).success(function(result){
             $scope.devList = result;
             // console.log(result);
+        }).error(function(status){
+            if(status== 'Unauthorized')
+                $scope.signout()
         })
     }
 
+    $scope.$on('updateDevInfo',function(event,args){
+        commonService.setConfig($scope.common_config);
+    })
     $scope.connect = function(){
         $http.post('/api/updateCommonConfig',$scope.common_config).success(function(result){
             alert(result);
         })
 
     }
+    $scope.signout = function(){
+        commonService.signout();
+        $window.location.href="/login";
+    }
 
     $scope.wiredEndpoint = function(devId) {
-        // console.log($scope.common_config);
+        // updateLocalData();
         commonService.setConfig($scope.common_config);
         console.log(commonService.getConfig());
         $http.post('/api/set_common_config',$scope.common_config).success(function(result){
@@ -56,8 +72,22 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
         
     }
 
+    function updateLocalData(){
+        // $scope.localData =  JSON.parse(localStorage.getItem('tandev'))
+        
+            // $scope.email = $scope.localData.user.name;
+        // }
+            
+        // else {
+            $window.location.href="/login";
+        // }
+    }
+
     $scope.regDevice = function(){
-        $scope.regDev.userName = $scope.userName;
+        // updateLocalData();
+        // $scope.regDev.userName = $scope.userName;
+        $scope.regDev.email = commonService.user.email;
+        console.log($scope.regDev);
         $http.post('/api/regDevice',$scope.regDev).success(function(result){
             if(result=='success'){
                 alert('Registered Successfully');
@@ -73,6 +103,10 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
     }
     $scope.getDevices();
 
+    $scope.$on('devInfo',function(event,args){
+        $scope.getDevInfo(args.devId);
+    })
+
     $scope.getDevInfo = function(devId){
         $http.get('/api/commonPrams/'+devId).success(function(result){
             devInfo = JSON.parse(result).rec;
@@ -81,10 +115,12 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
             $scope.common_config.CUSTOMER_ID = devInfo.userName
             $scope.common_config.DS_IPADDR = devInfo.ipAddress
             $scope.common_config.TS_IPADDR = devInfo.serverIP
+            $scope.common_config.DEVICE_ALIAS_NAME = devInfo.aliasName;
             if(devInfo.aliasName==null)
-                $scope.common_config.DEVICE_ALIAS_NAME = "0";
-            else 
-                $scope.common_config.DEVICE_ALIAS_NAME = "";
+                commonService.setAliasName(devId);
+            else
+                commonService.setAliasName(devInfo.aliasName);
+            
         })
 
         // alert(devId);
@@ -94,8 +130,8 @@ app.controller('deviceCtrl', function($scope, $http,$window,$location,commonServ
     $scope.getAnalogInfo = function(ipAddr,devId){
         if(ipAddr=='')
             ipAddr='0.0.0.0';
-        
-        $window.location.href = '/devparams/'+devId;
+        $window.location.href='/wired/'+devId+'/'+ipAddr;
+        // $window.location.href = '/devparams/'+devId;
     }
     
 });

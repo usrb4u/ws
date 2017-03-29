@@ -45,8 +45,6 @@ require('./config/passport')(passport);
 app.use('/',routes);
 
 require('./routes/ws.js')(app,evt);
-require('./routes/api.js')(app,evt);
-
 
 
 // session secret
@@ -55,7 +53,7 @@ app.use(passport.initialize());
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 require('./routes/routes.js')(app, passport); 
-
+require('./routes/api.js')(app,evt,passport);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

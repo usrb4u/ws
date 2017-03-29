@@ -30,9 +30,50 @@
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in" ng-click="/login"></span> Login</a></li>
+                <li><a href="#" ng-click="signout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
             </div>
 
         </nav>
     </div>
+
+    <div class="container">
+    <div class="row">
+        
+    <div class="col-sm-8" item-height="300px;">
+        
+        <h3> Welcome to the Tangent Techno Labs</h3>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <h4> Choose the device from list / Add new Device</h4>
+    </div>
+    <div class="col-sm-4">
+        <div class="well">
+        <p>Device List:</p>
+        </div>
+        <div min-height="100px;" class="well" >
+            <ul>
+                <li ng-repeat="dev in devList">
+                    <i class="glyphicon glyphicon-stop offline " ng-if="!dev.status"></i>
+                    <i class="glyphicon glyphicon-stop online" ng-if="dev.status"></i>
+                    <a href="" ng-click="getAnalogInfo(dev.ipAddress, dev.deviceId)"> 
+                        <span ng-bind="devName = dev.aliasName==null? dev.deviceId : dev.aliasName"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button id="add" ng-click="register()"> Add New Device</button>
+    </div>
+    </div>
+    <br>
+    </div>
+</div>
+<br/>
+<footer class="container">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

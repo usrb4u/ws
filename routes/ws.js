@@ -99,7 +99,7 @@ module.exports = function(app,eventEmitter) {
                             port:port,
                             status: true,
                             aliasName:'',
-                            userName:'',
+                            email:'',
                             regDate:new Date()
                         })
                     device.save(function(err, result) {

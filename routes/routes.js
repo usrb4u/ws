@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 var User = require(process.cwd()+'/model/user');
+var config = require('../config/config.js');
 
 module.exports = function(app, passport) {
 
@@ -23,11 +24,7 @@ module.exports = function(app, passport) {
     // =====================================
     // SIGNUP ==============================
     // =====================================
-    // show the signup form
-    app.get('/signup', function(req, res) {
-        console.log('signup called from get.');
-        res.end();
-    });
+    // show the signup form   
 
     app.post('/sign',function(req,res){
         console.log('sign method called');
@@ -42,7 +39,7 @@ module.exports = function(app, passport) {
     }));
 
 
-    app.post('/authenticate', function(req, res) {  
+    app.post('/signin', function(req, res) {  
         User.findOne({
             email: req.body.email
         }, function(err, user) {
@@ -53,16 +50,16 @@ module.exports = function(app, passport) {
             } else {
             // Check if password matches
             if (user.validPassword(req.body.password)) {
-                if (isMatch && !err) {
+                // if (isMatch && !err) {
                 // Create token if the password matched and no error was thrown
                 var token = jwt.sign(user, config.secret, {
                     expiresIn: 10080 // in seconds
                 });
-                res.json({ success: true, token: 'JWT ' + token });
+                res.json({ success: true, token: 'JWT ' + token, user:{name:user.name, email:user.email, role:user.role} });
                 } else {
                 res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
                 }
-            };
+            // };
             }
         });
     });
@@ -76,8 +73,8 @@ module.exports = function(app, passport) {
     });
 
     app.get('/success', function(req, res) {
-            console.log('success request: '+req.user);
-            res.send(req.user);
+            console.log('success request: ');
+            res.json("success");
             // res.redirect('/user/mail/'+req.user._id);
             //res.send({token : token, role:req.user.role, id:req.user._id});
         }

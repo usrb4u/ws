@@ -1,10 +1,11 @@
 var Device = require('../model/device');
 var config = require('../config/config.js');
 
-module.exports = function(app,eventEmitter) {
-    app.get('/api/getDevices/:userId', function(req,res){
+module.exports = function(app,eventEmitter,passport) {
+
+    app.get('/api/getDevices/:userId', passport.authenticate('jwt', { session: false }), function(req, res) {
             
-            Device.find({userName:req.params.userId}).lean().exec(function(err, rec) {
+            Device.find({email:req.params.userId}).lean().exec(function(err, rec) {
                 if(err)
                     res.status(500).send({message:err.message});
                 else
@@ -12,7 +13,7 @@ module.exports = function(app,eventEmitter) {
             });
         })
 
-    app.get('/api/commonPrams/:devId',function(req,res){
+    app.get('/api/commonPrams/:devId',passport.authenticate('jwt', { session: false }), function(req, res) {
         Device.find({deviceId:req.params.devId}).lean().exec(function(err, rec) {
             if(err){
                 console.log('Device search failed: '+err);
@@ -28,16 +29,16 @@ module.exports = function(app,eventEmitter) {
         })
     })
 
-    app.post('/api/regDevice',function(req,res){
+    app.post('/api/regDevice',passport.authenticate('jwt', { session: false }), function(req, res) {
         Device.find({deviceId:req.body.devId}).lean().exec(function(err, rec) {
             if(err){
                 console.log('Device search failed: '+err);
                  res.json('error');
             }
-            else if(rec.length==1 && rec[0].userName==''){
+            else if(rec.length==1 && rec[0].email==''){
                 Device.update({deviceId:req.body.devId}, {
                     $set: {
-                        userName: req.body.userName,
+                        email: req.body.email,
                         aliasName:req.body.aliasName
                     }
                 }).lean().exec(function (err, docs) {
@@ -50,7 +51,7 @@ module.exports = function(app,eventEmitter) {
                         // console.log(docs);
                     }
                 })
-            }else if(rec.userName!='' && rec.length==1)
+            }else if(rec.length==1 && rec[0].email!='' )
                 res.json('exists');
             else if(rec.length==0)
                 res.json('failed');
@@ -58,7 +59,7 @@ module.exports = function(app,eventEmitter) {
 
     })
 
-    app.get('/api/wiredAnalog/:devId/:devIp',function(req,res){        
+    app.get('/api/wiredAnalog/:devId/:devIp',passport.authenticate('jwt', { session: false }), function(req, res) {       
         Device.find({deviceId:req.params.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
                 // console.log(rec);
@@ -74,12 +75,12 @@ module.exports = function(app,eventEmitter) {
         })
     });
 
-    app.put('/api/remove/:devId/:ipAddr',function(req,res){
+    app.put('/api/remove/:devId/:ipAddr',passport.authenticate('jwt', { session: false }), function(req, res) {
         Device.find({deviceId:req.params.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
                 Device.update({deviceId:req.params.devId}, {
                     $set: {
-                        userName: '',
+                        email: '',
                         aliasName:''
                     }
                 }).lean().exec(function (err, docs) {
@@ -95,14 +96,14 @@ module.exports = function(app,eventEmitter) {
         })
     })
 
-    app.post('/api/updateCommonConfig',function(req,res){
+    app.post('/api/updateCommonConfig',passport.authenticate('jwt', { session: false }), function(req, res) {
         console.log('updateCommonConfig called');
-        console.log(req.body);
+        // console.log(req.body);
         Device.find({deviceId:req.body.DEVICEID}).lean().exec(function(err,rec){
             if(rec.length==1){
                 // console.log(rec);
                 if(!rec[0].status)
-                    res.json('offline');
+                    res.json('Offline');
                 else {
                     var key = rec[0].ipAddress+':'+rec[0].port;
                     // console.log(req.body.data);
@@ -115,23 +116,23 @@ module.exports = function(app,eventEmitter) {
 
     })
 
-    app.post('/api/set_common_config',function(req,res){
-        Device.find({deviceId:req.body.DEVICEID}).lean().exec(function(err,rec){
-            if(rec.length==1){
-                var key='';
-                if(!rec[0].status)
-                    key = '0.0.0.0:0';
-                 else
-                    key = rec[0].ipAddress+':'+rec[0].port;
-                eventEmitter.emit('UPDATE_COMMON_DATA',key,req.body);
-                res.json('success');
-            }
-            else
-                res.json('fail');
-        });
-    })
+    // app.post('/api/set_common_config',passport.authenticate('jwt', { session: false }), function(req, res) {
+    //     Device.find({deviceId:req.body.DEVICEID}).lean().exec(function(err,rec){
+    //         if(rec.length==1){
+    //             var key='';
+    //             if(!rec[0].status)
+    //                 key = '0.0.0.0:0';
+    //              else
+    //                 key = rec[0].ipAddress+':'+rec[0].port;
+    //             eventEmitter.emit('UPDATE_COMMON_DATA',key,req.body);
+    //             res.json('success');
+    //         }
+    //         else
+    //             res.json('fail');
+    //     });
+    // })
 
-    app.post('/api/wiredpoints',function(req,res){
+    app.post('/api/wiredpoints',passport.authenticate('jwt', { session: false }), function(req, res) {
         // console.log(req)
         Device.find({deviceId:req.body.devInfo.devId}).lean().exec(function(err,rec){
             if(rec.length==1){
@@ -140,7 +141,7 @@ module.exports = function(app,eventEmitter) {
                     res.json('offline');
                 else {
                     var key = rec[0].ipAddress+':'+rec[0].port;
-                    // console.log(req.body.data);
+                    eventEmitter.emit('UPDATE_COMMON_DATA',key,req.body.common);
                     eventEmitter.emit('COMMON_CONFIG_DATA',key,rec[0].deviceId,res,req.body.data)
                     
                 }

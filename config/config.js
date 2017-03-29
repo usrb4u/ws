@@ -3,7 +3,7 @@ module.exports = {
     'secret': 'tangenttechnolabs123',
     'dbUri' : 'mongodb://localhost:27017/tangent', 
     'ipAddress': '0.0.0.0',
-     'TCP_PORT':7080,
+     'TCP_PORT':8080,
     'HTTP_PORT':8000,
     'COMMON_CONFIG':{
                         "PACKET_ID":"COMMON_CONFIG_DATA",
